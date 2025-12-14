@@ -366,6 +366,7 @@ header {
 
 // ===================== SERVICES =====================
 .services {
+    padding: 7rem 0 5rem 0;
     .main_heading {
         max-width: 800px;
         margin: 0 auto;
@@ -418,7 +419,7 @@ header {
 
 // ===================== TESTIMONIALS =====================
 .Testimonials {
-    padding: 5rem 0;
+    padding: 7rem 0;
 
     .flexbox {
         gap: 15px;
@@ -524,7 +525,7 @@ header {
 
 // ===================== LAST SECTION =====================
 .last_section {
-    padding: 10rem 0;
+    padding: 8rem 0;
 
     span {
         color: $blue-primary;
