@@ -1,98 +1,109 @@
 "use client";
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useLayoutEffect, useState } from 'react';
 import gsap from 'gsap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 export default function Home() {
 
   const [selectedDate, setSelectedDate] = useState(null);
-  useEffect(() => {
-    const full_bar_2 = document.querySelectorAll('form')[1];
-
-   
-
-    gsap.to(full_bar_2, {
-      
-      opacity: 0
+  const formOneRef = useRef(null);
+  const formTwoRef = useRef(null);
+  const optionsRef = useRef(null);
+  const optionRef = useRef(null);
+  useLayoutEffect(() => {
+    gsap.set(formTwoRef.current, {
+      autoAlpha: 0,
+      y: -90,
+      scale: 0.95,
     });
-    gsap.to(options, {
-      backgroundColor: 'rgba(62, 65, 148, 0.04)',
-      color: '#000',
-      borderRadius: '10px 10px 0 0',
 
+    gsap.set(formOneRef.current, {
+      autoAlpha: 1,
+      y: 0,
+    });
+
+    gsap.set(optionsRef.current, {
+      backgroundColor: "rgba(62, 65, 148, 0.04)",
+      color: "#000",
     });
   }, []);
+
+  /* ----------------------------------
+     SHOW FORM 2
+  ---------------------------------- */
   const hide_bar_1 = () => {
-    const full_bar_1 = document.querySelectorAll('form')[0];
-    const full_bar_2 = document.querySelectorAll('form')[1];
-    const options = document.querySelector('#options');
-    const option = document.querySelector('#option');
-    gsap.to(full_bar_1, {
-      y: 100,
-      opacity: 0,
-      duration: 1,
-      onComplete: () => {
-        full_bar_1.style.display = 'none'; 
-      },
-    });
-    gsap.to(full_bar_2, {
-      y: -90,
-      opacity: 1,
-      duration: 1,
-      onComplete: () => {
-        full_bar_1.style.display = 'block';
-      },
-    });
-    gsap.to(option, {
-      backgroundColor: 'rgba(62, 65, 148, 0.04)',
-      color: '#000',
-      borderRadius: '10px 10px 0 0',
-      duration: 1,
-    });
-    gsap.to(options, {
-      backgroundColor: 'transparent',
-      color: '#696969b8',
-      borderRadius: '10px 10px 0 0',
-      duration: 1,
-    });
+    gsap.timeline({ overwrite: true })
+
+    .to(optionsRef.current, {
+        backgroundColor: "transparent",
+        color: "#000",
+         duration:0
+      })
+      .to(optionRef.current, {
+        backgroundColor: "rgba(62, 65, 148, 0.04)",
+        color: "#000",
+        borderRadius:'10px 10px 0 0',
+         duration:0
+      })
+      .to(formOneRef.current, {
+        autoAlpha: 0,
+        y: 100,
+        scale: 0.95,
+        duration: 0.6,
+        ease: "power3.inOut",
+      })
+      
+      
+      .to(
+        formTwoRef.current,
+        {
+          autoAlpha: 1,
+          y: -86,
+          scale: 1,
+          duration: 0.6,
+          ease: "power3.out",
+        },
+        "-=0.1"
+      );
   };
 
+  /* ----------------------------------
+     SHOW FORM 1
+  ---------------------------------- */
   const hide_bar_2 = () => {
-    const full_bar_1 = document.querySelectorAll('form')[1];
-    const full_bar_2 = document.querySelectorAll('form')[0];
-    const options = document.querySelector('#options');
-    const option = document.querySelector('#option');
+    gsap.timeline({ overwrite: true })
+    .to(optionRef.current, {
+        backgroundColor: "transparent",
+        color: "#000",
+        duration:0
+      })
+      .to(optionsRef.current, {
+        backgroundColor: "rgba(62, 65, 148, 0.04)",
+        color: "#000",
+        borderRadius:'10px 10px 0 0',
+         duration:0
 
-    gsap.to(full_bar_1, {
-      y: 100,
-      opacity: 0,
-      duration: 1,
-      onComplete: () => {
-        full_bar_1.style.display = 'none'; // hide element after animation
-      },
-    });
-    gsap.to(full_bar_2, {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      onComplete: () => {
-        full_bar_1.style.display = 'block'; 
-      },
-    });
-    gsap.to(options, {
-      backgroundColor: 'rgba(62, 65, 148, 0.04)',
-      padding: '5px 20px',
-      color: '#000',
-      borderRadius: '10px 10px 0 0',
-      duration: 1,
-    });
-    gsap.to(option, {
-      backgroundColor: 'transparent',
-      color: '#696969b8',
-      borderRadius: '10px 10px 0 0',
-      duration: 1,
-    });
+      })
+      .to(formTwoRef.current, {
+        autoAlpha: 0,
+        y: 100,
+        scale: 0.95,
+        duration: 0.6,
+        ease: "power3.inOut",
+      })
+      .to(
+        formOneRef.current,
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "power3.out",
+        },
+        "-=0.1"
+      );
   };
+
 
   return (
     <>
@@ -109,14 +120,14 @@ export default function Home() {
 
           <div className="full_bar">
             <div className="flexstart">
-              <div className="options" id='options' onClick={hide_bar_2}>
+              <div className="options" ref={optionsRef} onClick={hide_bar_2}>
                 <h5>Shipping</h5>
               </div>
-              <div className="option" onClick={hide_bar_1} id='option'>
+              <div className="option" onClick={hide_bar_1} ref={optionRef}>
                 <h5>Tracking</h5>
               </div>
             </div>
-            <form action="">
+            <form action="" ref={formOneRef}>
               <div className="verti_bar flexbox">
 
                 <div className="flexbox vertical_line">
@@ -173,7 +184,7 @@ export default function Home() {
                 </div>
               </div>
             </form>
-            <form action="">
+            <form action="" ref={formTwoRef}>
               <div className="verti_bar flexbox">
 
                 <div className="flexbox vertical_line">
@@ -209,7 +220,7 @@ export default function Home() {
                     <DatePicker
                       selected={selectedDate}
                       onChange={(date) => setSelectedDate(date)}
-                      placeholderText="Enter date"
+                      placeholderText="Select date"
                       dateFormat="dd MMM yyyy"
                       className="soft-rounded-input"
                       calendarClassName="soft-rounded-calendar"
@@ -398,7 +409,7 @@ export default function Home() {
                 <a href="">Explore Now</a>
               </div>
             </div>
-             <div className="col_ flex">
+            <div className="col_ flex">
               <div className="icon">
                 02
               </div>
@@ -502,7 +513,7 @@ export default function Home() {
                 <div className="flexgap">
                   <div className="main_head">
                     <h2>Customer Review</h2>
-                  <p>We take pride in being your trusted home shifting partner. Relocation made stress-free with personalized assistance.</p>
+                    <p>We take pride in being your trusted home shifting partner. Relocation made stress-free with personalized assistance.</p>
                   </div>
                   <div className="blue_text">
                     <div className="flexgap">
@@ -515,18 +526,18 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="pera">
-                      <p>“Our experience with the home shifting service was absolutely flawless, as the team handled every aspect of our move with precision and care. From the initial packing to the final setup at our new home, everything was done on time and without any stress.  The attention to detail they exhibited throughout the move was truly commendable and made the entire experience seamless. The staff was friendly and provided excellent customer support.”</p>
+                    <p>“Our experience with the home shifting service was absolutely flawless, as the team handled every aspect of our move with precision and care. From the initial packing to the final setup at our new home, everything was done on time and without any stress.  The attention to detail they exhibited throughout the move was truly commendable and made the entire experience seamless. The staff was friendly and provided excellent customer support.”</p>
+                  </div>
+                  <div className="flexbox">
+                    <div className="col_1">
+                      <h3>Ryan Hughes</h3>
+                      <h5>CEO at FastUk</h5>
                     </div>
-                    <div className="flexbox">
-                      <div className="col_1">
-                        <h3>Ryan Hughes</h3>
-                        <h5>CEO at FastUk</h5>
-                      </div>
-                      <div className="col_1">
-                         <div className="arrow"><button><div className="image"><img src="/images/Vector (1).svg" alt="" /></div></button></div>
-                         <div className="arrow"><button><div className="image"><img src="/images/Vector (1).svg" alt="" /></div></button></div>
-                      </div>
+                    <div className="col_1">
+                      <div className="arrow"><button><div className="image"><img src="/images/Vector (1).svg" alt="" /></div></button></div>
+                      <div className="arrow"><button><div className="image"><img src="/images/Vector (1).svg" alt="" /></div></button></div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
