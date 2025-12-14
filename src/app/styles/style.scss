@@ -106,6 +106,9 @@ header {
 
     .flexstart {
         gap: $gap-sm;
+        h5{
+            font-family: medium;
+        }
 
         .options {
             padding: 5px 20px;
