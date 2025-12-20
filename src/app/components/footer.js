@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Link from "next/link";
 import Image from "next/image";
 
@@ -133,7 +132,7 @@ export default function Footer() {
     </>
   );
 }
-=======
+
 export default function Footer() {
     return (
         <>
@@ -236,4 +235,4 @@ export default function Footer() {
         </>
     )
 }
->>>>>>> 9f7322267dc4f0f5eeff189603527f07cbc0ff55
+
