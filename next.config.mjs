@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+<<<<<<< HEAD
   reactCompiler: true,
 
   images: {
@@ -19,3 +20,10 @@ const nextConfig = {
 };
 
 export default nextConfig;
+=======
+  /* config options here */
+  reactCompiler: true,
+};
+
+export default nextConfig;
+>>>>>>> 9f7322267dc4f0f5eeff189603527f07cbc0ff55

@@ -1,0 +1,344 @@
+// ===================== VARIABLES =====================
+// Colors
+$white: #ffffff;
+$black: #000000;
+$red-primary: #FA0201;
+$blue-primary: #3E4194;
+
+$blue-rgba-solid: rgba(62, 65, 148, 1);
+$blue-rgba-light: rgba(62, 65, 148, 0.04);
+
+$gray-text: rgba(105, 105, 105, 1);
+$gray-text-light: rgba(105, 105, 105, 0.72);
+$gray-line: rgba(180, 181, 194, 1);
+$gray-box: #3e41940a;
+
+// Typography
+$font-regular: regular_poppins;
+$font-bold: bold;
+$font-default: regular;
+$font-base: 16px;
+
+// Radius
+$radius-sm: 10px;
+$radius-md: 20px;
+$radius-lg: 30px;
+
+// Spacing
+$gap-sm: 1.5rem;
+$gap-md: 1rem;
+$gap-lg: 35px;
+
+// Effects & Assets
+$shadow-header: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+$img-frame: url(/images/Frame.png);
+// ======================================================================
+// 1. Desktop / Large Tablet Screens (Max 1200px / Container Max-Width)
+// ======================================================================
+
+@media (max-width: 1200px) {
+  .contain {
+    padding: 0 40px; // Increase padding for better edge spacing
+  }
+
+  // HEADER: Adjust navigation spacing
+  header nav ul .flex li {
+    margin: 0 10px;
+  }
+}
+
+// ======================================================================
+// 2. Tablet Screens (Max 991px)
+// ======================================================================
+
+@media (max-width: 991px) {
+  // Typography adjustments
+  h1 {
+    font-size: 40px;
+  }
+  h2,
+  h3 {
+    font-size: 35px;
+  }
+  strong {
+    font-size: 40px;
+  }
+  
+  // HEADER: Hide navigation for smaller screens (e.g., enable a hamburger menu if implemented)
+  header nav {
+    display: none;
+  }
+  
+  // BANNER: Reconfigure search bar layout
+  .banner {
+    .full_bar {
+      max-width: 100%;
+    }
+    .verti_bar {
+      // Allow search inputs to wrap
+      gap: 20px;
+      .vertical_line {
+        width: calc(50% - 10px);
+        
+        // Two items per row
+       &:after{
+               margin: 0 -3%;
+       }
+        
+      }
+      .search {
+        
+        text-align: center;
+       
+      }
+    }
+  }
+
+  // STATS: Stack the boxes vertically, adjust widths
+  .stats {
+    .flexwrap {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    .boxes {
+      width: 100%; // Make boxes wider
+      max-width: 600px;
+      &:nth-child(2) {
+        width: 100%; // Main image wider
+      }
+    }
+  }
+  
+  // HOW IT WORKS: Stack columns
+  .howitworks {
+    .flex {
+      flex-direction: column;
+      gap: 3rem;
+      .col_ {
+        width: 100%; // Full width
+        &:nth-child(2) {
+          padding-left: 0;
+          width: 100%; // Full width
+          &::after {
+            display: none; // Hide background frame graphic
+          }
+        }
+      }
+    }
+  }
+
+  // TRACKER: Two steps per row
+  .tracker {
+    padding: 5rem 0;
+    .flex {
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-around;
+      .col_1 {
+        width: calc(50% - 30px); // Two per row
+        strong::before {
+          width: 80px; // Shorten separator line
+          left: 100%;
+        }
+        &:nth-child(2n):before {
+          content: none; // Remove separator on the right column
+        }
+      }
+    }
+  }
+
+  // DELIVERY: Stack columns
+  .Delivery {
+    .flex {
+      flex-direction: column;
+      gap: 3rem;
+      .col_ {
+        width: 100%;
+        &:nth-child(1) {
+          width: 100%;
+        }
+      }
+      .flexwrap .flex {
+        width: calc(50% - 10px); // Two features per row
+      }
+    }
+  }
+  
+  // SERVICES: Stack vertically
+  .services .flexwrap {
+    flex-direction: column;
+    gap: 30px;
+    .col_ {
+      width: 100%;
+      &:nth-child(2),
+      &:nth-child(3) {
+        width: 100%;
+      }
+    }
+  }
+
+  // TESTIMONIALS: Stack columns
+  .Testimonials .flexbox {
+    flex-wrap: wrap;
+    gap: 30px;
+    .col_ {
+      width: 100%;
+      &:nth-child(1) {
+        width: 100%;
+      }
+    }
+  }
+
+  // SECTION 1: Stack columns and adjust padding
+  .section_1 .bgcolor {
+    padding: 30px;
+    .flex {
+      flex-direction: column;
+      gap: 30px;
+      .col_ {
+        width: 100%;
+      }
+    }
+  }
+
+  // LAST SECTION: Stack columns
+  .last_section {
+    padding: 5rem 0;
+    .flexbox {
+      flex-direction: column;
+      .col_ {
+        width: 100%;
+      }
+    }
+    .flexgap .flexbox {
+      .col_1:nth-child(2) {
+        margin-left: auto; // Push arrows to the right
+      }
+    }
+  }
+
+  // FOOTER: Grid layout to stack columns
+  footer .grid {
+    grid-template-columns: 1fr 1fr; // Two columns
+    gap: 40px 20px;
+    .col_:nth-child(1) {
+        grid-column: 1 / -1; // Make first column full width
+    }
+  }
+}
+
+// ======================================================================
+// 3. Mobile Screens (Max 720px)
+// ======================================================================
+@media (max-width: 720px) {
+ .banner .verti_bar {
+    flex-direction: column;
+    align-items: stretch;
+    .vertical_line {
+      width: 100%;
+      &::after {
+        content: none; // Remove vertical line
+      }
+    }
+    .search {
+      margin-top: 10px;
+      button {
+        width: 100%; // Make search button full width
+        height: auto;
+        padding: 15px 20px;
+        border-radius: $radius-sm;
+        .image {
+          width: 20px;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+}
+// ======================================================================
+// 3. Mobile Screens (Max 576px)
+// ======================================================================
+
+@media (max-width: 576px) {
+  .contain {
+    padding: 0 15px;
+  }
+  
+  // Typography adjustments for small screens
+  h1 {
+    font-size: 30px;
+  }
+  h2,
+  h3 {
+    font-size: 28px;
+  }
+  .banner .centerText p {
+    font-size: 18px;
+  }
+  
+  // HEADER: Stack buttons or simplify
+  header .buttons .flex {
+    flex-direction: column;
+    gap: 10px;
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  // BANNER: Stack all search bar inputs vertically
+ 
+  
+  // STATS: Ensure all stats are readable
+  .stats .boxes .box .num {
+    font-size: 40px;
+  }
+  
+  // TRACKER: Stack all steps vertically
+  .tracker .flex .col_1 {
+    width: 100%;
+    strong::before {
+      display: none; // Remove horizontal separator line
+    }
+  }
+
+  // DELIVERY: Stack features vertically
+  .Delivery .flexwrap .flex {
+    width: 100%; // One feature per row
+  }
+
+  // SECTION 1: Adjust button layout
+  .section_1 .bgcolor .buttons {
+    flex-direction: column;
+    .btn {
+      width: 100%;
+      text-align: center;
+      a {
+        justify-content: center;
+        .image {
+          left: 0; // Center icon
+        }
+      }
+    }
+  }
+
+  // LAST SECTION: Adjust testimonial content
+  .last_section {
+    .flexgap .flexbox {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .last_section .flexgap .flexbox .col_1:nth-child(2) {
+      margin-left: 0; // Remove margin
+    }
+    .last_section .flexgap .flexbox .col_1 {
+      width: 100%;
+    }
+  }
+  
+  // FOOTER: Stack all footer columns
+  footer .grid {
+    grid-template-columns: 1fr; // Single column layout
+  }
+}
