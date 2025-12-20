@@ -24,3 +24,192 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Fonts */
+@font-face {
+  font-family: light;
+  src: url(/fonts/Jost-Light.ttf);
+}
+
+@font-face {
+  font-family: regular;
+  src: url(/fonts/Jost-Regular.ttf);
+}
+
+@font-face {
+  font-family: bold;
+  src: url(/fonts/Jost-Bold.ttf);
+}
+
+@font-face {
+  font-family: medium;
+  src: url(/fonts/Jost-Medium.ttf);
+}
+
+@font-face {
+  font-family: SemiBold;
+  src: url(/fonts/Jost-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: italic;
+  src: url(/fonts/Jost-Italic.ttf);
+}
+
+@font-face {
+  font-family: regular_poppins;
+  src: url(/fonts/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: poppins_medium;
+  src: url(/fonts/Poppins-Medium.ttf);
+}
+
+@font-face {
+  font-family: popinns_semibold;
+  src: url(/fonts/Poppins-SemiBold.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Medium;
+}
+
+
+img {
+  width: 100%;
+
+  object-fit: cover;
+  height: 100%;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffffee;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Layout & Flex Utilities */
+.flex {
+  display: flex;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flexstart {
+  display: flex;
+  align-items: self-start;
+}
+
+.flexwrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.top {
+  position: relative;
+  top: -13px;
+  left: -9px;
+}
+
+.container {
+  max-width: 1300px;
+  padding: 0 15px;
+  margin: 0 auto;
+
+}
+.contain{
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+header {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Buttons */
+.btn {
+  cursor: pointer;
+}
+
+label {
+  font-family: popinns_semibold;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+strong {
+  font-family: bold;
+  font-size: 50px;
+  font-weight: 700;
+  color: #FA0201;
+}
+
+.flexcol {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+}
+
+
+
+li {
+  list-style: none;
+}
+
+
+h5,
+.ticker-link {
+  font-size: 15px;
+  line-height: 1.5;
+  font-style: normal;
+  font-family: medium;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0;
+}
+
+::placeholder {
+  color: #4a4a4abb;
+  font-family: regular;
+  font-weight: 500;
+  font-size: 17px;
+}
+h1{
+  font-size: 30px;
+  font-family: bold;
+
+}
+.btn{
+  width: fit-content;
+  padding: 16px 3rem;
+  a{
+    font-size: 18px;
+  font-family: bold;
+  }
+  background-color: #000;
+  
+  border-radius: 30px;
+
+}
