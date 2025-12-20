@@ -50,8 +50,8 @@ export default function Home() {
       name: "Custom Design Copperkhjhkjh Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
-      hover: "https://vikingarmoryblades.com/cdn/shop/files/tVoAAeSw1iZoeKQF_1570x.jpg?v=1756831721",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
+      hover: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: false,
       vendor: "Viking Armory Blades",
@@ -63,11 +63,11 @@ export default function Home() {
     },
     {
       id: 2,
-      hover: "https://vikingarmoryblades.com/cdn/shop/files/tVoAAeSw1iZoeKQF_1570x.jpg?v=1756831721",
+      hover: "/9gAAeSwpLFoi3Pz_1570x.webp",
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -82,7 +82,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -97,7 +97,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -112,7 +112,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -131,7 +131,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png",  // Ensure this image is nessery to add 
       onSale: true, //also this 
       vendor: "Viking Armory Blades",
@@ -147,7 +147,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -162,7 +162,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -177,7 +177,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -192,7 +192,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -211,7 +211,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -226,7 +226,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -241,7 +241,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -256,7 +256,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
@@ -271,7 +271,7 @@ export default function Home() {
       name: "Custom Design Copper Damascus Folding Knife – Pocket Blade",
       price: "$145.00",
       salePrice: "$69.69",
-      image: "https://vikingarmoryblades.com/cdn/shop/files/9gAAeSwpLFoi3Pz_1570x.jpg?v=1756831210",
+      image: "/9gAAeSwpLFoi3Pz_1570x.webp",
       wishlistIcon: "/heart (3).png", // Ensure this image exists in your public folder
       onSale: true,
       vendor: "Viking Armory Blades",
