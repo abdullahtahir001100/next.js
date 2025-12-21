@@ -1,6 +1,8 @@
 /* ===================== VARIABLES ===================== */
 .btn{
   width: fit-content;
+  font-family: regular;
+  font-size: 17px;
   padding: 13px 3.2rem;
   a{
     color: #fff;
@@ -39,7 +41,7 @@ $fs-xxl: 45px;
 
 /* SPACING */
 $sp-xxs: 5px;
-$sp-xs: 15px;
+$sp-xs: 7px;
 $sp-sm: 15px;
 $sp-md: 20px;
 $sp-lg: 30px;
@@ -180,10 +182,17 @@ header {
     background-color: $dark-bg;
 
     .logo {
-        width: 20%;
+        width: 10%;
 
         .image {
             width: $logo-width;
+        }
+    }
+    .mobile_triggers{
+        display: none;
+        gap: 30px;
+        .img{
+            width: 24px;
         }
     }
 
@@ -198,7 +207,7 @@ header {
 
             .flex {
                 justify-content: space-between;
-
+                
                 input {
                     width: 90%;
                     font-family: regular;
@@ -216,7 +225,8 @@ header {
         .icons {
             .flex {
                 display: flex;
-                align-items: center;
+                align-items: end !important;
+
                 justify-content: space-between;
                 color: $white;
 
@@ -314,8 +324,10 @@ product{
 
 .info-slider {
     padding: 1rem 0;
-    border-bottom: .2px solid $black;
-
+    border-bottom: .2px solid #00000058;
+    .swiper-button-prev,.swiper-button-next{
+        width: 10px !important;
+    }
     .flex {
         position: relative;
         display: flex;
@@ -418,6 +430,7 @@ product{
 
     .buttons {
        padding: 0 10px 0 0;
+       align-items: center;
         
         .btn {
             width: 80%;
@@ -532,7 +545,7 @@ span {
 
     .container {
         .flex {
-            gap: $sp-xs;
+            gap: 30px 15px;
             padding: $sp-xxs;
 
             .col_ {
@@ -712,7 +725,7 @@ footer {
             color: #fff;
 
         }
-        h1{
+        h3{
             color: #fff;
             font-size: 20px;
         }
@@ -815,7 +828,11 @@ footer {
             left: 35%;
         }
     }
-
+    .image-grid-section {
+        .flex{
+            gap: 15px;
+        }
+    }
     .banner_ad .flex {
         flex-direction: column;
         text-align: center;
@@ -828,6 +845,7 @@ footer {
         h1 { font-size: 28px; }
         .container .flex {
             flex-wrap: wrap;
+            gap: 15px;
             .col_ {
                 width: 100% !important; // Stack images on mobile
             }
@@ -869,19 +887,27 @@ footer {
 }
 
 /* Small Mobile Devices */
-@media (max-width: 480px) {
+@media (max-width: 500px) {
     .products {
         padding: 2rem 0;
         
         .flexbox {
-            flex-direction: column;
-            align-items: flex-start;
+         
+           
             gap: 10px;
             
             h1 { font-size: 24px; }
         }
     }
-
+    .products .buttons .btn{
+        width: fit-content;
+           padding: 0px 1rem;
+    font-size: 13px;
+    height: 28px;
+    }
+    .quick-view button{
+        font-size: 7px;
+    }
     .viking-ticker {
         .ticker-item {
             font-size: 12px;
@@ -905,6 +931,12 @@ footer {
     }
 }
 @media (max-width: 768px) {
+    .header{
+        display: none;
+    }
+      .logo{
+                display: none;
+            }
     .main_header {
         .flexbox {
             display: flex;
@@ -922,7 +954,7 @@ footer {
             display: flex;
             align-items: center;
             gap: 15px;
-            
+          
             button {
                 background: transparent;
                 border: none;
@@ -955,10 +987,76 @@ footer {
 
         /* Adjust Cart badge position for mobile */
         .num_order {
-            top: -10px !important;
-            left: 14px !important;
+            // top: -10px !important;
+            // left: 14px !important;
             padding: 1px 5px !important;
             font-size: 10px !important;
         }
     }
+}
+
+.pop_search{
+    width: 650px;
+    margin: 0 auto;
+    position: absolute;
+    z-index: 1;
+   left: 33%;
+    top: 29%;
+    background-color: #fff;
+   
+   border-radius: 10px;
+    padding: 1rem;
+    h2{
+        margin: 10px 0;
+        font-size: 20px;
+        font-family: italic;
+        font-weight: 600;
+    }
+    .flex{
+       justify-content: flex-start;
+       gap: 20px;
+       
+       
+        .image{
+            width: 100%;
+            height: 150px;
+            img{
+                border-radius: 5px;
+            }
+        }
+        .title{
+            margin: 10px 0;
+        }
+        .price{
+            font-family: bold;
+            padding:0 1rem;
+        }
+        
+            height: 320px;
+            overflow: scroll;
+        
+    }
+}
+/* Target the entire document and every single element */
+html, body {
+  scrollbar-width: none; // For Firefox
+  -ms-overflow-style: none; // For Internet Explorer and Edge
+  
+  &::-webkit-scrollbar {
+    display: none !important; // For Chrome, Safari, and Opera
+    width: 0 !important;
+    height: 0 !important;
+  }
+}
+
+/* Fallback for all elements just in case */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+.close_x_btn{
+    float: inline-end;
 }

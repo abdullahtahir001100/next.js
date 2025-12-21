@@ -597,3 +597,19 @@ header {
         display: none;
     }
 }
+
+footer {
+    .viking-newsletter {
+        text-align: center;
+
+        input {
+            padding: 14px 20px;
+            box-shadow: 2px 3px 10px #92888899;
+            width: 350px;
+        }
+        button{
+            background-color: #ff0022;
+            padding: 14px 20px;
+        }
+    }
+}
