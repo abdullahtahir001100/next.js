@@ -1000,7 +1000,7 @@ footer {
     margin: 0 auto;
     position: absolute;
     z-index: 1;
-   left: 33%;
+   left: 23%;
     top: 29%;
     background-color: #fff;
    
@@ -1059,4 +1059,8 @@ html, body {
 }
 .close_x_btn{
     float: inline-end;
+}
+.products .swiper-pagination .swiper-pagination-bullet {
+    width: 13px;
+    height: 13px;
 }
