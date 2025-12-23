@@ -213,3 +213,14 @@ h1{
   border-radius: 30px;
 
 }
+html, body {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  
+ 
+}
+ body::-webkit-scrollbar {
+    display: none !important; 
+    width: 0 !important;
+    height: 0 !important;
+  }

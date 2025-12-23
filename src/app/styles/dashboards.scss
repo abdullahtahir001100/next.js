@@ -799,202 +799,7 @@ footer {
         align-items: center;
         gap: 10px;
     }
-    /* ===================== RESPONSIVE MEDIA QUERIES ===================== */
-
-/* Table and Large Tablets */
-@media (max-width: 1024px) {
-    .main_header {
-        .field { width: 45%; }
-        .links { width: 30%; }
-    }
-
-    .about {
-        padding: 2rem 1rem;
-        .flex {
-            gap: 2rem;
-            h1 { font-size: 2.2rem; }
-        }
-    }
-}
-
-/* Tablets and Mobile Landscape */
-@media (max-width: 768px) {
-    .main_header {
-        .logo { width: 30%; }
-        .field { display: none; } // Typically hide search on mobile or move to a toggle
-        .links { width: auto; }
-        
-        .num_order {
-            left: 35%;
-        }
-    }
-    .image-grid-section {
-        .flex{
-            gap: 15px;
-        }
-    }
-    .banner_ad .flex {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-        
-        h4 { font-size: 14px; }
-    }
-
-    .image-grid-section {
-        h1 { font-size: 28px; }
-        .container .flex {
-            flex-wrap: wrap;
-            gap: 15px;
-            .col_ {
-                width: 100% !important; // Stack images on mobile
-            }
-        }
-    }
-
-    .about {
-        .flex {
-            flex-direction: column;
-            .col_ {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    }
-
-    footer {
-        .viking-newsletter {
-            input { width: 100%; margin-bottom: 10px; }
-            button { width: 100%; margin-left: 0; }
-        }
-        
-        .viking-main {
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .viking-col {
-            width: 100%;
-            text-align: center;
-        }
-    }
-
-    .viking-bottom {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-}
-
-/* Small Mobile Devices */
-@media (max-width: 500px) {
-    .products {
-        padding: 2rem 0;
-        
-        .flexbox {
-         
-           
-            gap: 10px;
-            
-            h1 { font-size: 24px; }
-        }
-    }
-    .products .buttons .btn{
-        width: fit-content;
-           padding: 0px 1rem;
-    font-size: 13px;
-    height: 28px;
-    }
-    .quick-view button{
-        font-size: 7px;
-    }
-    .viking-ticker {
-        .ticker-item {
-            font-size: 12px;
-            gap: 10px;
-        }
-    }
-
-    .main_header {
-        .logo .image {
-            width: 100px;
-        }
-        
-        .links .icons .con span {
-            display: none; // Hide text labels for icons on very small screens
-        }
-    }
-
-    .about {
-        h1 { font-size: 24px !important; }
-        p { font-size: 14px; }
-    }
-}
-@media (max-width: 768px) {
-    .header{
-        display: none;
-    }
-      .logo{
-                display: none;
-            }
-    .main_header {
-        .flexbox {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Hide Desktop-only elements */
-        .desktop_only {
-            display: none !important;
-        }
-
-        /* Show Mobile Burger and Search (Left) */
-        .mobile_triggers {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-          
-            button {
-                background: transparent;
-                border: none;
-                padding: 0;
-                cursor: pointer;
-            }
-        }
-
-        .links {
-            width: auto;
-
-            .icons .flex {
-                display: flex;
-                gap: 15px;
-                align-items: center;
-
-                /* Hide the Heart Icon (Wishlist) Link */
-                a[href="/wishlist"] {
-                    display: none;
-                }
-
-                .con {
-                    /* Hide text labels "Sign In", "Cart" */
-                    .icon_text {
-                        display: none;
-                    }
-                }
-            }
-        }
-
-        /* Adjust Cart badge position for mobile */
-        .num_order {
-            // top: -10px !important;
-            // left: 14px !important;
-            padding: 1px 5px !important;
-            font-size: 10px !important;
-        }
-    }
-}
-
+  
 .pop_search{
     width: 650px;
     margin: 0 auto;
@@ -1038,16 +843,7 @@ footer {
     }
 }
 /* Target the entire document and every single element */
-html, body {
-  scrollbar-width: none; // For Firefox
-  -ms-overflow-style: none; // For Internet Explorer and Edge
-  
-  &::-webkit-scrollbar {
-    display: none !important; // For Chrome, Safari, and Opera
-    width: 0 !important;
-    height: 0 !important;
-  }
-}
+
 
 /* Fallback for all elements just in case */
 * {
@@ -1063,4 +859,243 @@ html, body {
 .products .swiper-pagination .swiper-pagination-bullet {
     width: 13px;
     height: 13px;
+}
+/* Ensure the list items sit next to each other */
+.flexwrap {
+    display: flex;
+    list-style: none;
+    gap: 20px; /* Space between main menu items */
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+/* 1. Relative positioning for the parent LI */
+/* This ensures the dropdown appears relative to this specific button */
+.dropdown-parent {
+    position: relative;
+    li a{
+        position: relative;
+        
+          &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 90%;
+                margin: 0 auto;
+                height: .5px;
+                border-radius: 20px;
+                background-color: #00000034;
+                transition: all $transition-fast;
+            }
+           
+    }
+   /* Helps keep mouse on element while moving down */
+}
+
+/* 2. Style the hidden dropdown menu */
+.dropdown-menu {
+        z-index: 10;
+    background-color: #fff;
+   
+    min-width: 227px;
+    padding: 17px 0 0  0;
+    list-style: none;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0 8px 16px #0003;
+    margin: 10px 0;
+    line-height: 2.5; /* Ensure it floats on top of other content */
+   
+}
+
+/* 3. The Magic: Show the menu when hovering over the parent LI */
+.dropdown-parent:hover .dropdown-menu {
+    display: block;
+}
+
+/* Styling links inside the dropdown */
+.dropdown-menu li {
+    display: block;
+    width: 100%;
+}
+
+.dropdown-menu li a {
+    color: #333; /* Dark text for dropdown items */
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1; /* Light grey on hover */
+    color: #000;
+}/* --- Overlay --- */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 998;
+    cursor: pointer;
+}
+
+/* --- Sidebar Container --- */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 270px;
+    height: 100vh;
+    background: #fff;
+    z-index: 9999999;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    z-index: 20; /* Ensure header stays above sliding content */
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+}
+
+/* --- Menu Layers (Main & Sub) --- */
+/* Both layers sit on top of each other. GSAP controls visibility. */
+.menu-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* Scrollable if list is long */
+    background: #fff;
+    padding-bottom: 50px;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f5f5f5;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu-link:hover {
+    background-color: #fafafa;
+}
+
+.arrow {
+    font-size: 18px;
+    color: #999;
+}
+
+/* --- Submenu Specifics --- */
+.sub-menu-title {
+    padding: 15px 20px;
+    font-weight: 800;
+    background: #f9f9f9;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px 20px;
+    background: #333; /* Dark background for back button */
+    color: #fff;
+    border: none;
+    text-align: left;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.back-arrow {
+    margin-right: 10px;
+    font-size: 20px;
+    line-height: 1;
+}
+.menu-layer ul li{
+    position: relative;
+   
+     &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: .5px;
+                border-radius: 20px;
+                background-color: #00000025;
+                transition: all $transition-fast;
+            }
+}
+.sidebar-search-input-box {
+   border: 1px solid #0000005b;
+    margin: 10px;
+    input{
+    padding: 7px 10px;
+    
+    
+}
+}
+.wrap{
+    padding: 10px;
+    gap: 0 !important;
+    a{
+        padding: 5px 0 !important;
+        
+        flex-direction: column;
+        align-items: flex-start !important;
+        .op_pic{
+            width: 100px !important;
+            height: 100px !important;
+        }
+    }
+    }
+
+   
+.back-btn{
+    display: flex !important;
+    align-items: center;
+    background-color: transparent !important;
+    justify-content: end !important;
+    .back-arrow{
+      
+        color: #000;
+    }
 }

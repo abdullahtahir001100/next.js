@@ -1,344 +1,205 @@
-// ===================== VARIABLES =====================
-// Colors
-$white: #ffffff;
-$black: #000000;
-$red-primary: #FA0201;
-$blue-primary: #3E4194;
+  /* ===================== RESPONSIVE MEDIA QUERIES ===================== */
 
-$blue-rgba-solid: rgba(62, 65, 148, 1);
-$blue-rgba-light: rgba(62, 65, 148, 0.04);
+/* Table and Large Tablets */
+@media (max-width: 1024px) {
+    .main_header {
+        .field { width: 45%; }
+        .links { width: 30%; }
+    }
 
-$gray-text: rgba(105, 105, 105, 1);
-$gray-text-light: rgba(105, 105, 105, 0.72);
-$gray-line: rgba(180, 181, 194, 1);
-$gray-box: #3e41940a;
-
-// Typography
-$font-regular: regular_poppins;
-$font-bold: bold;
-$font-default: regular;
-$font-base: 16px;
-
-// Radius
-$radius-sm: 10px;
-$radius-md: 20px;
-$radius-lg: 30px;
-
-// Spacing
-$gap-sm: 1.5rem;
-$gap-md: 1rem;
-$gap-lg: 35px;
-
-// Effects & Assets
-$shadow-header: rgba(0, 0, 0, 0.06) 0px 2px 4px;
-$img-frame: url(/images/Frame.png);
-// ======================================================================
-// 1. Desktop / Large Tablet Screens (Max 1200px / Container Max-Width)
-// ======================================================================
-
-@media (max-width: 1200px) {
-  .contain {
-    padding: 0 40px; // Increase padding for better edge spacing
-  }
-
-  // HEADER: Adjust navigation spacing
-  header nav ul .flex li {
-    margin: 0 10px;
-  }
+    .about {
+        padding: 2rem 1rem;
+        .flex {
+            gap: 2rem;
+            h1 { font-size: 2.2rem; }
+        }
+    }
 }
 
-// ======================================================================
-// 2. Tablet Screens (Max 991px)
-// ======================================================================
-
-@media (max-width: 991px) {
-  // Typography adjustments
-  h1 {
-    font-size: 40px;
-  }
-  h2,
-  h3 {
-    font-size: 35px;
-  }
-  strong {
-    font-size: 40px;
-  }
-  
-  // HEADER: Hide navigation for smaller screens (e.g., enable a hamburger menu if implemented)
-  header nav {
-    display: none;
-  }
-  
-  // BANNER: Reconfigure search bar layout
-  .banner {
-    .full_bar {
-      max-width: 100%;
+/* Tablets and Mobile Landscape */
+@media (max-width: 768px) {
+    .about .flex .col_ .content{
+        align-items: center;
     }
-    .verti_bar {
-      // Allow search inputs to wrap
-      gap: 20px;
-      .vertical_line {
-        width: calc(50% - 10px);
+    .main_header {
+        .logo { width: 30%; }
+        .field { display: none; } // Typically hide search on mobile or move to a toggle
+        .links { width: auto; }
         
-        // Two items per row
-       &:after{
-               margin: 0 -3%;
-       }
-        
-      }
-      .search {
-        
+        .num_order {
+            left: 35%;
+        }
+    }
+    .image-grid-section {
+        .flex{
+            gap: 15px;
+        }
+    }
+    .banner_ad .flex {
+        flex-wrap: wrap;
         text-align: center;
-       
-      }
+        gap: 10px;
+        
+        h4 { font-size: 14px; }
     }
-  }
 
-  // STATS: Stack the boxes vertically, adjust widths
-  .stats {
-    .flexwrap {
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
-    }
-    .boxes {
-      width: 100%; // Make boxes wider
-      max-width: 600px;
-      &:nth-child(2) {
-        width: 100%; // Main image wider
-      }
-    }
-  }
-  
-  // HOW IT WORKS: Stack columns
-  .howitworks {
-    .flex {
-      flex-direction: column;
-      gap: 3rem;
-      .col_ {
-        width: 100%; // Full width
-        &:nth-child(2) {
-          padding-left: 0;
-          width: 100%; // Full width
-          &::after {
-            display: none; // Hide background frame graphic
-          }
+    .image-grid-section {
+        h1 { font-size: 28px; }
+        .container .flex {
+            flex-wrap: wrap;
+            gap: 15px;
+            .col_ {
+                width: 100% !important; // Stack images on mobile
+            }
         }
-      }
     }
-  }
 
-  // TRACKER: Two steps per row
-  .tracker {
-    padding: 5rem 0;
-    .flex {
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: space-around;
-      .col_1 {
-        width: calc(50% - 30px); // Two per row
-        strong::before {
-          width: 80px; // Shorten separator line
-          left: 100%;
+    .about {
+        .flex {
+            flex-direction: column;
+            .col_ {
+                width: 100%;
+                text-align: center;
+            }
         }
-        &:nth-child(2n):before {
-          content: none; // Remove separator on the right column
+    }
+
+    footer {
+        .viking-newsletter {
+            input { width: 100%; margin-bottom: 10px; }
+            button { width: 100%; margin-left: 0; }
         }
-      }
-    }
-  }
-
-  // DELIVERY: Stack columns
-  .Delivery {
-    .flex {
-      flex-direction: column;
-      gap: 3rem;
-      .col_ {
-        width: 100%;
-        &:nth-child(1) {
-          width: 100%;
+        
+        .viking-main {
+            flex-direction: column;
+            gap: 30px;
         }
-      }
-      .flexwrap .flex {
-        width: calc(50% - 10px); // Two features per row
-      }
-    }
-  }
-  
-  // SERVICES: Stack vertically
-  .services .flexwrap {
-    flex-direction: column;
-    gap: 30px;
-    .col_ {
-      width: 100%;
-      &:nth-child(2),
-      &:nth-child(3) {
-        width: 100%;
-      }
-    }
-  }
 
-  // TESTIMONIALS: Stack columns
-  .Testimonials .flexbox {
-    flex-wrap: wrap;
-    gap: 30px;
-    .col_ {
-      width: 100%;
-      &:nth-child(1) {
-        width: 100%;
-      }
+        .viking-col {
+            width: 100%;
+            text-align: center;
+        }
     }
-  }
 
-  // SECTION 1: Stack columns and adjust padding
-  .section_1 .bgcolor {
-    padding: 30px;
-    .flex {
-      flex-direction: column;
-      gap: 30px;
-      .col_ {
-        width: 100%;
-      }
+    .viking-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
     }
-  }
-
-  // LAST SECTION: Stack columns
-  .last_section {
-    padding: 5rem 0;
-    .flexbox {
-      flex-direction: column;
-      .col_ {
-        width: 100%;
-      }
-    }
-    .flexgap .flexbox {
-      .col_1:nth-child(2) {
-        margin-left: auto; // Push arrows to the right
-      }
-    }
-  }
-
-  // FOOTER: Grid layout to stack columns
-  footer .grid {
-    grid-template-columns: 1fr 1fr; // Two columns
-    gap: 40px 20px;
-    .col_:nth-child(1) {
-        grid-column: 1 / -1; // Make first column full width
-    }
-  }
 }
 
-// ======================================================================
-// 3. Mobile Screens (Max 720px)
-// ======================================================================
-@media (max-width: 720px) {
- .banner .verti_bar {
-    flex-direction: column;
-    align-items: stretch;
-    .vertical_line {
-      width: 100%;
-      &::after {
-        content: none; // Remove vertical line
-      }
-    }
-    .search {
-      margin-top: 10px;
-      button {
-        width: 100%; // Make search button full width
-        height: auto;
-        padding: 15px 20px;
-        border-radius: $radius-sm;
-        .image {
-          width: 20px;
-          margin: 0 auto;
+/* Small Mobile Devices */
+@media (max-width: 500px) {
+    .products {
+        padding: 2rem 0;
+        
+        .flexbox {
+         
+           
+            gap: 10px;
+            
+            h1 { font-size: 24px; }
         }
-      }
     }
-  }
+    .products .buttons .btn{
+        width: fit-content;
+           padding: 0px 1rem;
+    font-size: 13px;
+    height: 28px;
+    }
+    .quick-view button{
+        font-size: 7px;
+    }
+    .viking-ticker {
+        .ticker-item {
+            font-size: 12px;
+            gap: 10px;
+        }
+    }
+
+    .main_header {
+        .logo .image {
+            width: 100px;
+        }
+        
+        .links .icons .con span {
+            display: none; // Hide text labels for icons on very small screens
+        }
+    }
+
+    .about {
+        h1 { font-size: 24px !important; }
+        p { font-size: 14px; }
+    }
+     .banner_ad .flex {
+        flex-wrap: wrap;
+        text-align: center;
+        gap: 10px;
+        
+        h4 { font-size: 12px; }
+    }
 }
-// ======================================================================
-// 3. Mobile Screens (Max 576px)
-// ======================================================================
-
-@media (max-width: 576px) {
-  .contain {
-    padding: 0 15px;
-  }
-  
-  // Typography adjustments for small screens
-  h1 {
-    font-size: 30px;
-  }
-  h2,
-  h3 {
-    font-size: 28px;
-  }
-  .banner .centerText p {
-    font-size: 18px;
-  }
-  
-  // HEADER: Stack buttons or simplify
-  header .buttons .flex {
-    flex-direction: column;
-    gap: 10px;
-    .btn {
-      width: 100%;
-      text-align: center;
+@media (max-width: 768px) {
+    .header{
+        display: none;
     }
-  }
-
-  // BANNER: Stack all search bar inputs vertically
- 
-  
-  // STATS: Ensure all stats are readable
-  .stats .boxes .box .num {
-    font-size: 40px;
-  }
-  
-  // TRACKER: Stack all steps vertically
-  .tracker .flex .col_1 {
-    width: 100%;
-    strong::before {
-      display: none; // Remove horizontal separator line
-    }
-  }
-
-  // DELIVERY: Stack features vertically
-  .Delivery .flexwrap .flex {
-    width: 100%; // One feature per row
-  }
-
-  // SECTION 1: Adjust button layout
-  .section_1 .bgcolor .buttons {
-    flex-direction: column;
-    .btn {
-      width: 100%;
-      text-align: center;
-      a {
-        justify-content: center;
-        .image {
-          left: 0; // Center icon
+      .logo{
+                display: none;
+            }
+    .main_header {
+        .flexbox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-      }
-    }
-  }
 
-  // LAST SECTION: Adjust testimonial content
-  .last_section {
-    .flexgap .flexbox {
-      flex-direction: column;
-      align-items: flex-start;
+        /* Hide Desktop-only elements */
+        .desktop_only {
+            display: none !important;
+        }
+
+        /* Show Mobile Burger and Search (Left) */
+        .mobile_triggers {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+          
+            button {
+                background: transparent;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+            }
+        }
+
+        .links {
+            width: auto;
+
+            .icons .flex {
+                display: flex;
+                gap: 15px;
+                align-items: center;
+
+                /* Hide the Heart Icon (Wishlist) Link */
+                a[href="/wishlist"] {
+                    display: none;
+                }
+
+                .con {
+                    /* Hide text labels "Sign In", "Cart" */
+                    .icon_text {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        /* Adjust Cart badge position for mobile */
+        .num_order {
+            // top: -10px !important;
+            // left: 14px !important;
+            padding: 1px 5px !important;
+            font-size: 10px !important;
+        }
     }
-    .last_section .flexgap .flexbox .col_1:nth-child(2) {
-      margin-left: 0; // Remove margin
-    }
-    .last_section .flexgap .flexbox .col_1 {
-      width: 100%;
-    }
-  }
-  
-  // FOOTER: Stack all footer columns
-  footer .grid {
-    grid-template-columns: 1fr; // Single column layout
-  }
 }

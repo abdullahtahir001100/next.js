@@ -14,9 +14,13 @@ const nextConfig = {
         hostname: 'www.javehandmade.store',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
     ],
   },
 };
 
 export default nextConfig;
-

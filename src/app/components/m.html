@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viking Armory Blades - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #1a1c23; color: #e5e7eb; font-family: 'Inter', sans-serif; }
+        .card-bg { background-color: #24262d; border: 1px solid #374151; }
+        .viking-gold { color: #d4af37; }
+        .viking-btn { background-color: #d4af37; color: #1a1c23; font-weight: 600; }
+        .viking-btn:hover { background-color: #f3cf7a; }
+    </style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+    <aside class="w-64 card-bg p-6 space-y-8 hidden md:block">
+        <div class="text-xl font-bold viking-gold mb-10 flex items-center">
+            <i class="fas fa-shield-halved mr-2"></i> Viking Armory
+        </div>
+        <nav class="space-y-4">
+            <a href="#" class="block viking-gold bg-gray-700 p-2 rounded">Dashboard</a>
+            <a href="#" class="block hover:text-yellow-500 transition">Products</a>
+            <a href="#" class="block hover:text-yellow-500 transition">Orders</a>
+            <a href="#" class="block hover:text-yellow-500 transition">Customers</a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-8 overflow-y-auto">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-semibold">Viking Armory Blades - Admin Dashboard</h1>
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-bell cursor-pointer"></i>
+                <div class="w-10 h-10 rounded-full bg-gray-600 border border-yellow-500"></div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-12 gap-6">
+            
+            <section class="col-span-12 lg:col-span-9 card-bg p-6 rounded-lg">
+                <h2 class="text-lg font-bold mb-4">Hero Slider Images</h2>
+                <div class="flex space-x-4 overflow-x-auto pb-4">
+                    <div class="min-w-[120px] text-center group relative">
+                        <div class="w-24 h-24 mx-auto bg-gray-800 rounded-lg border border-gray-600 flex items-center justify-center overflow-hidden">
+                            <img src="https://via.placeholder.com/100?text=Hammer" alt="Hammer">
+                        </div>
+                        <p class="mt-2 text-sm">Hammers</p>
+                        <div class="absolute top-1 right-2 flex space-x-1">
+                            <button class="bg-blue-600 p-1 rounded text-xs"><i class="fas fa-edit"></i></button>
+                            <button class="bg-red-600 p-1 rounded text-xs"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+
+            <section class="col-span-12 lg:col-span-3 card-bg p-6 rounded-lg">
+                <h2 class="text-lg font-bold mb-4">Collections</h2>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="h-16 bg-gray-800 rounded border border-gray-600"></div>
+                    <div class="h-16 bg-gray-800 rounded border border-gray-600"></div>
+                    <div class="h-16 bg-gray-800 rounded border border-gray-600"></div>
+                    <div class="h-16 bg-gray-800 rounded border border-gray-600"></div>
+                </div>
+                <button class="w-full mt-4 py-2 border border-dashed border-gray-500 rounded text-sm hover:border-yellow-500">+ Add Collection</button>
+            </section>
+
+            <section class="col-span-12 lg:col-span-9 card-bg p-6 rounded-lg">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex space-x-4 border-b border-gray-700">
+                        <button class="pb-2 border-b-2 border-yellow-500 text-yellow-500">Best Sellers</button>
+                        <button class="pb-2 text-gray-400 hover:text-white">Related Products</button>
+                    </div>
+                    <button class="viking-btn px-4 py-2 rounded text-sm" onclick="toggleModal()">Add Product</button>
+                </div>
+                
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="text-gray-400 border-b border-gray-700 text-sm">
+                            <th class="pb-3">Image</th>
+                            <th class="pb-3">Name</th>
+                            <th class="pb-3">Price</th>
+                            <th class="pb-3">Stock</th>
+                            <th class="pb-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-gray-800">
+                            <td class="py-4"><div class="w-10 h-10 bg-gray-700 rounded"></div></td>
+                            <td>Custom Copper Damascus...</td>
+                            <td>$145.00</td>
+                            <td>6</td>
+                            <td class="space-x-2">
+                                <button class="bg-gray-700 px-3 py-1 rounded">Edit</button>
+                                <button class="text-red-500">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="col-span-12 lg:col-span-3 card-bg p-6 rounded-lg">
+                <h2 class="text-lg font-bold mb-4">Info Bar</h2>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-2 bg-gray-800 rounded">
+                        <span class="text-xs">Safe Shipping</span>
+                        <i class="fas fa-edit viking-gold cursor-pointer"></i>
+                    </div>
+                    <div class="flex items-center justify-between p-2 bg-gray-800 rounded">
+                        <span class="text-xs">Premium Materials</span>
+                        <i class="fas fa-edit viking-gold cursor-pointer"></i>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</div>
+
+<div id="productModal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center p-4">
+    <div class="card-bg w-full max-w-2xl p-8 rounded-xl shadow-2xl">
+        <h2 class="text-2xl font-bold viking-gold mb-6">Add New Product</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <input type="text" placeholder="Product Name" class="bg-gray-800 p-2 rounded border border-gray-600">
+            <input type="text" placeholder="Price" class="bg-gray-800 p-2 rounded border border-gray-600">
+            <textarea placeholder="Description" class="col-span-2 bg-gray-800 p-2 rounded border border-gray-600 h-24"></textarea>
+        </div>
+        <div class="mt-6 flex justify-end space-x-4">
+            <button onclick="toggleModal()" class="text-gray-400">Cancel</button>
+            <button class="viking-btn px-6 py-2 rounded">Save Product</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleModal() {
+        const modal = document.getElementById('productModal');
+        modal.classList.toggle('hidden');
+    }
+</script>
+
+</body>
+</html>
