@@ -17,6 +17,7 @@ const ICONS = {
     mobileSearch: '/search-interface-symbol.png'
 };
 
+// --- MENU DATA ---
 const MENU_DATA = [
     { label: 'Home', href: '/' },
     { 
@@ -49,7 +50,6 @@ const MENU_DATA = [
 
 // --- CUSTOM HOOKS ---
 
-// 1. Debounce 
 function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
     useEffect(() => {
@@ -59,7 +59,6 @@ function useDebounce(value, delay) {
     return debouncedValue;
 }
 
-// 2. Click Outside
 function useClickOutside(ref, handler) {
     useEffect(() => {
         const listener = (event) => {
@@ -89,7 +88,7 @@ export default function Header() {
     const [showDesktopSearch, setShowDesktopSearch] = useState(false);
 
     // Refs
-    const headerRef = useRef(null); // Ref for the main header element
+    const headerRef = useRef(null); // Ref for the main header
     const inputRef = useRef(null);
     const searchContainerRef = useRef(null); 
     const desktopPopupRef = useRef(null);
@@ -110,27 +109,27 @@ export default function Header() {
         fetchProducts();
     }, []);
 
-    // 2. SCROLL LOGIC (Hide on Down, Show on Up)
+    // 2. SCROLL LOGIC (Hide Down / Show Up)
     useEffect(() => {
         let lastScrollY = window.scrollY;
         
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             const isScrollingDown = currentScrollY > lastScrollY;
-            const isAtTop = currentScrollY < 100; // Threshold to always show at top
+            const isAtTop = currentScrollY < 50; // Always show if at top
 
-            // If we scroll, close the desktop search popup to prevent weird floating
+            // If scrolling, close search to prevent UI glitches
             if (Math.abs(currentScrollY - lastScrollY) > 10 && showDesktopSearch) {
                 setShowDesktopSearch(false);
                 if(inputRef.current) inputRef.current.blur();
             }
 
             if (isScrollingDown && !isAtTop) {
-                // Hide Header
-                gsap.to(headerRef.current, { yPercent: -100, duration: 0.3, ease: 'power3.out' });
+                // Hide Header (Move Up)
+                gsap.to(headerRef.current, { yPercent: -100, duration: 2, ease: 'power3.out' });
             } else {
-                // Show Header
-                gsap.to(headerRef.current, { yPercent: 0, duration: 0.3, ease: 'power3.out' });
+                // Show Header (Move Down)
+                gsap.to(headerRef.current, { yPercent: 0, duration: 3, ease: 'power3.out' });
             }
 
             lastScrollY = currentScrollY;
@@ -140,7 +139,7 @@ export default function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [showDesktopSearch]);
 
-    // 3. SEARCH FILTER LOGIC
+    // 3. SEARCH LOGIC
     useEffect(() => {
         if (debouncedSearchTerm.trim().length > 0) {
             const results = products.filter(item => 
@@ -192,13 +191,12 @@ export default function Header() {
                 role="banner" 
                 className='main_header' 
                 style={{
-                    position: 'fixed', // CHANGED to Fixed
+                    position: 'fixed', // Changed from relative to fixed for scroll effect
                     top: 0, 
                     left: 0, 
                     width: '100%', 
-                    zIndex: 1000, 
-                    backgroundColor: '#fff', // Ensure background isn't transparent
-                    transition: 'transform 0.1s ease-out' // smoother GSAP override
+                    zIndex: 999991000, 
+                   // Ensure it has a background
                 }}
             >
                 <div className="contain">
@@ -327,32 +325,27 @@ function MobileSidebar({ isOpen, mode, onClose, allProducts = [] }) {
     const scopeRef = useRef(null); 
     const mainMenuRef = useRef(null);
     const subMenuRef = useRef(null);
-    const ctxRef = useRef(null); // Keep reference to GSAP Context
+    const ctxRef = useRef(null); 
 
-    // 1. SETUP CONTEXT (Runs Once on Mount)
+    // 1. SETUP CONTEXT
     useLayoutEffect(() => {
         ctxRef.current = gsap.context(() => {}, scopeRef);
         return () => ctxRef.current.revert();
     }, []);
 
-    // 2. ANIMATION LOGIC (Runs on isOpen change)
+    // 2. ANIMATION LOGIC
     useEffect(() => {
-        // Add animation to the persistent context
         ctxRef.current.add(() => {
             if (isOpen) {
-                // OPEN
                 gsap.to(overlayRef.current, { autoAlpha: 1, duration: 0.3 });
                 gsap.to(sidebarRef.current, { x: '0%', duration: 0.4, ease: "power3.out" });
             } else {
-                // CLOSE
                 gsap.to(sidebarRef.current, { x: '-100%', duration: 0.3, ease: "power3.in" });
                 gsap.to(overlayRef.current, { 
                     autoAlpha: 0, duration: 0.3, delay: 0.1, 
                     onComplete: () => {
-                        // Reset State AFTER animation finishes
                         setActiveMenu(null); 
                         setLocalSearchTerm("");
-                        // Reset menus for next time
                         gsap.set(mainMenuRef.current, { x: 0, autoAlpha: 1 });
                         gsap.set(subMenuRef.current, { x: '100%', autoAlpha: 1 });
                     }
@@ -399,7 +392,6 @@ function MobileSidebar({ isOpen, mode, onClose, allProducts = [] }) {
                 </div>
                 
                 <div className="sidebar-content-wrapper" style={{position:'relative', overflowX:'hidden', height: 'calc(100% - 60px)'}}>
-                    
                     {/* --- MENU MODE --- */}
                     {mode === 'menu' && (
                         <>
@@ -438,7 +430,6 @@ function MobileSidebar({ isOpen, mode, onClose, allProducts = [] }) {
                     {/* --- SEARCH MODE --- */}
                     {mode === 'search' && (
                         <div className="sidebar-search-panel">
-                             
                             <div className="sidebar-search-input-box">
                                 <input 
                                     type="text" 
@@ -455,7 +446,6 @@ function MobileSidebar({ isOpen, mode, onClose, allProducts = [] }) {
                                 )}
                             </div>
                             <div className="sidebar-results-container" style={{padding:0}}>
-                                
                                 {filteredItems.length > 0 ? (
                                     filteredItems.map(product => (
                                         <ProductResultItem key={product._id} product={product} onClick={onClose} />

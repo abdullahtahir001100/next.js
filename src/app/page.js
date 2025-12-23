@@ -300,23 +300,7 @@ export default function Home() {
       </section>
 
       {/* Related Products */}
-      <section className="products">
-        <div className="container">
-          <div className="flexbox"><h1>Related Products</h1><Link href='/'>Shop All</Link></div>
-          {related.length > 0 && (
-             <Swiper modules={[Pagination, Autoplay]} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
-             breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
-             {related.map((product) => (
-               <SwiperSlide key={product._id}>
-                  <div onClick={() => trackProductClick(product._id)} style={{ cursor: 'pointer' }}>
-                     <ProductCard product={product} />
-                  </div>
-               </SwiperSlide>
-             ))}
-           </Swiper>
-          )}
-        </div>
-      </section>
+    
 
       {/* About Section */}
       <section className='about'>
@@ -342,7 +326,23 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
+        <section className="products">
+        <div className="container">
+          <div className="flexbox"><h1>Related Products</h1><Link href='/'>Shop All</Link></div>
+          {related.length > 0 && (
+             <Swiper modules={[Pagination, Autoplay]} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
+             breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
+             {related.map((product) => (
+               <SwiperSlide key={product._id}>
+                  <div onClick={() => trackProductClick(product._id)} style={{ cursor: 'pointer' }}>
+                     <ProductCard product={product} />
+                  </div>
+               </SwiperSlide>
+             ))}
+           </Swiper>
+          )}
+        </div>
+      </section>
       {/* Search Popup - Now fully functional */}
       <aside ref={popupRef} style={{ display: 'none', opacity: 0 }} className="pop_search">
           <div className="search_results">
