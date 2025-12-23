@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import gsap from 'gsap';
@@ -9,7 +10,10 @@ import { useSearch } from './components/search';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Header from "./components/header_main";
+import Header_1 from "./components/header";
 
+import Animate_slider from "./components/animate_slider";
 import ProductCard from "./components/product_card";
 
 // --- CONSTANTS ---
@@ -154,6 +158,9 @@ export default function Home() {
 
   return (
     <>
+     <Animate_slider />
+          <Header />
+          <Header_1 />
       {/* Hero Slider */}
       <section className="swiper-container-wrapper">
         <Swiper modules={[Pagination, Autoplay]} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }}>
