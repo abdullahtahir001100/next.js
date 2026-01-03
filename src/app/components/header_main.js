@@ -44,11 +44,10 @@ const MENU_DATA = [
     { label: 'Hammers & Maces', href: '#' },
     { label: 'Shields & Armor', href: '#' },
     { label: 'Display & Accessories', href: '#' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Contact', href: '#' },
+    { label: 'About Us', href: '/page/about' },
+    { label: 'Contact', href: '/ContactUs' },
 ];
 
-// --- CUSTOM HOOKS ---
 
 function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -87,6 +86,10 @@ export default function Header() {
     const [sidebarMode, setSidebarMode] = useState('menu'); 
     const [showDesktopSearch, setShowDesktopSearch] = useState(false);
 
+    // Cart & Wishlist States
+    const [cartCount, setCartCount] = useState(0);
+    const [wishlistCount, setWishlistCount] = useState(0);
+
     // Refs
     const headerRef = useRef(null); // Ref for the main header
     const inputRef = useRef(null);
@@ -95,6 +98,13 @@ export default function Header() {
 
     const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
+    // --- Helper to handle inconsistent API data formats ---
+    const safeExtract = (data) => {
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.products)) return data.products;
+        return [];
+    };
+
     // 1. FETCH DATA
     useEffect(() => {
         const fetchProducts = async () => {
@@ -102,11 +112,38 @@ export default function Header() {
                 const res = await fetch('/api/products');
                 if (res.ok) {
                     const data = await res.json();
-                    setProducts(Array.isArray(data) ? data : []);
+                    const items = safeExtract(data);
+                    setProducts(items);
                 }
             } catch (error) { console.error("Error fetching products:", error); }
         };
         fetchProducts();
+    }, []);
+
+    // --- DYNAMIC COUNTS LOGIC ---
+    useEffect(() => {
+        const updateCounts = () => {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            
+            // Calculate total quantity in cart (sum of .quantity fields)
+            const totalQty = cart.reduce((acc, item) => acc + (parseInt(item.quantity) || 0), 0);
+            setCartCount(totalQty);
+            setWishlistCount(wishlist.length);
+        };
+
+        updateCounts(); // Initial load
+
+        // Listen for changes in other tabs
+        window.addEventListener('storage', updateCounts);
+        
+        // Poll every 1 second to catch changes in the current tab
+        const interval = setInterval(updateCounts, 1000);
+
+        return () => {
+            window.removeEventListener('storage', updateCounts);
+            clearInterval(interval);
+        };
     }, []);
 
     // 2. SCROLL LOGIC (Hide Down / Show Up)
@@ -126,10 +163,10 @@ export default function Header() {
 
             if (isScrollingDown && !isAtTop) {
                 // Hide Header (Move Up)
-                gsap.to(headerRef.current, { yPercent: -100, duration: 2, ease: 'power3.out' });
+                gsap.to(headerRef.current, { yPercent: -100, duration: 0.3, ease: 'power3.out' });
             } else {
                 // Show Header (Move Down)
-                gsap.to(headerRef.current, { yPercent: 0, duration: 3, ease: 'power3.out' });
+                gsap.to(headerRef.current, { yPercent: 0, duration: 0.3, ease: 'power3.out' });
             }
 
             lastScrollY = currentScrollY;
@@ -142,8 +179,10 @@ export default function Header() {
     // 3. SEARCH LOGIC
     useEffect(() => {
         if (debouncedSearchTerm.trim().length > 0) {
+            const term = debouncedSearchTerm.toLowerCase();
             const results = products.filter(item => 
-                (item.name || item.title || "").toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+                (item.name || "").toLowerCase().includes(term) ||
+                (item.productType || "").toLowerCase().includes(term)
             );
             setFilteredProducts(results);
             setShowDesktopSearch(true);
@@ -225,7 +264,7 @@ export default function Header() {
                                 style={{
                                     position: 'absolute', top: '120%', left: 0, width: '100%', minWidth: '350px',
                                     background: '#fff', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', 
-                                    padding: '0', borderRadius: '4px', zIndex: 1001,
+                                    padding: '0', borderRadius: '4px', zIndex: 99999999,
                                     opacity: 0, visibility: 'hidden', transform: 'translateY(-10px)', overflow: 'hidden'
                                 }}
                             >
@@ -245,9 +284,9 @@ export default function Header() {
                         <nav className="links">
                             <div className="icons">
                                 <div className="flex" style={{ display: 'flex', gap: '20px' }}>
-                                    <IconLink href="/wishlist" icon={ICONS.wishlist} label="Wish List" />
+                                    <IconLink href="/wishlist" icon={ICONS.wishlist} label="Wish List" count={wishlistCount > 0 ? wishlistCount : undefined} />
                                     <IconLink href="/account" icon={ICONS.profile} label="Sign In" />
-                                    <IconLink href="/cart" icon={ICONS.cart} label="Cart" count={3} />
+                                    <IconLink href="/cart" icon={ICONS.cart} label="Cart" count={cartCount > 0 ? cartCount : undefined} />
                                 </div>
                             </div>
                         </nav>
@@ -297,7 +336,7 @@ function ProductResultItem({ product, onClick }) {
                 />
             </div>
             <div>
-                <div style={{fontSize:'14px', fontWeight:'600', color:'#333', lineHeight:'1.2', marginBottom: '4px'}}>{product.name}</div>
+                <div style={{fontSize:'14px', fontWeight:'600', color:'#333', width:'100%', lineHeight:'1.2', marginBottom: '4px'}}>{product.name}</div>
                 <div style={{fontSize:'13px', color:'#666'}}>${product.price}</div>
             </div>
         </Link>

@@ -26,8 +26,8 @@
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 9999999;
-      transition: all ease 0.5s;
+        z-index: 3;
+    
       
                     
         .logo { width: 30%; }
@@ -95,9 +95,21 @@
         text-align: center;
     }
 }
-
+@media (max-width: 600px){
+   .product-image-wrapper {
+       
+           height: 230px !important;
+        
+    }
+}
 /* Small Mobile Devices */
+
 @media (max-width: 500px) {
+     .product-image-wrapper {
+       
+           height: 200px !important;
+        
+    }
     .products {
         padding: 2rem 0;
         
@@ -211,4 +223,12 @@
             font-size: 10px !important;
         }
     }
+}
+
+@media (max-width: 400px){
+    .product-image-wrapper {
+         
+              height: 130px !important;
+          
+     }
 }

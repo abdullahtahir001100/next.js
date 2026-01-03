@@ -44,8 +44,8 @@ const MENU_DATA = [
     { label: 'Hammers & Maces', href: '#' },
     { label: 'Shields & Armor', href: '#' },
     { label: 'Display & Accessories', href: '#' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Contact', href: '#' },
+    { label: 'About Us', href: '/page/about' },
+    { label: 'Contact', href: '/ContactUs' },
 ];
 
 // --- CUSTOM HOOKS ---

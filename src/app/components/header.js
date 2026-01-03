@@ -51,10 +51,10 @@ export default function Header() {
                                 <Link href="#">Display & Accessories</Link>
                             </li>
                             <li>
-                                <Link href="/about">About Us</Link>
+                                <Link href="/page/about">About Us</Link>
                             </li>
                             <li>
-                                <Link href="#">Contact</Link>
+                                <Link href="/ContactUs">Contact</Link>
                             </li>
                         </div>
                     </ul>

@@ -1,0 +1,328 @@
+/* --- VIKING OFFICE 365 DARK EDITION --- */
+#viking-dashboard-scope {
+    all: revert;
+    box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #000; // Deep Dark Background
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #fff;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    /* SYSTEM BAR */
+    .o365-system-bar {
+        background: #004a83;
+        color: white;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+
+        .left-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .w-icon {
+                background: white;
+                color: #004a83;
+                font-weight: 900;
+                padding: 2px 7px;
+                border-radius: 2px;
+            }
+
+            .doc-title {
+                font-size: 13px;
+                font-weight: 600;
+            }
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+
+            input {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.15);
+                border: none;
+                padding: 6px 15px;
+                border-radius: 4px;
+                color: white;
+                outline: none;
+            }
+        }
+
+        .right-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            .import-btn {
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: white;
+                padding: 4px 12px;
+                border-radius: 2px;
+                cursor: pointer;
+                font-size: 12px;
+            }
+
+            .deploy-cta {
+                background: white;
+                color: #0078d4;
+                border: none;
+                padding: 5px 15px;
+                border-radius: 2px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .user-profile {
+                background: #a4262c;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    /* RIBBON & TOOLBAR FIX */
+    .o365-ribbon {
+        background: #202020;
+        border-bottom: 1px solid #333;
+
+        .ribbon-tabs {
+            display: flex;
+            padding-left: 20px;
+
+            span {
+                padding: 10px 15px;
+                font-size: 13px;
+                color: #aaa;
+                cursor: pointer;
+
+                &.active {
+                    color: #0078d4;
+                    border-bottom: 3px solid #0078d4;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .quick-nav {
+            background: #2b2b2b;
+            padding: 5px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-top: 1px solid #333;
+
+            .nav-label {
+                font-size: 11px;
+                font-weight: bold;
+                color: #666;
+            }
+
+            button {
+                background: #333;
+                border: 1px solid #444;
+                color: #ccc;
+                padding: 4px 12px;
+                border-radius: 2px;
+                font-size: 12px;
+                cursor: pointer;
+
+                &.active {
+                    border-color: #0078d4;
+                    color: #0078d4;
+                    background: #262626;
+                }
+            }
+        }
+    }
+
+    /* --- THE SHEET SCROLLER (A4 FEEL) --- */
+    .o365-workspace {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+
+        .sheet-scroller {
+            flex: 1;
+            overflow-y: auto;
+            background: #111;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .a4-sheet-container {
+            width: 850px;
+            background: #2b2b2b;
+            min-height: 1100px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+
+            /* QUILL DARK THEME OVERRIDES */
+            .quill {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+
+                .ql-toolbar.ql-snow {
+                    border: none;
+                    border-bottom: 1px solid #444;
+                    background: #252526;
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                    padding: 8px 30px;
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+
+                    /* Fix Icons Color & Visibility */
+                    .ql-stroke {
+                        stroke: #bbb !important;
+                        stroke-width: 2px;
+                    }
+
+                    .ql-fill {
+                        fill: #bbb !important;
+                    }
+
+                    .ql-picker {
+                        color: #bbb !important;
+                        font-size: 12px;
+                    }
+
+                    .ql-picker-options {
+                        background: #252526 !important;
+                        border: 1px solid #444 !important;
+                    }
+
+                    button:hover {
+                        background: #3e3e42 !important;
+
+                        .ql-stroke {
+                            stroke: #0078d4 !important;
+                        }
+                    }
+                }
+
+                .ql-container {
+                    border: none !important;
+
+                    .ql-editor {
+                        padding: 80px 100px;
+                        min-height: 1000px;
+                        font-size: 16px;
+                        color: #fff;
+                        line-height: 1.6;
+                    }
+                }
+            }
+        }
+    }
+
+    /* MODALS */
+    .modern-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(4px);
+    }
+
+    .modern-modal-card {
+        background: #252526;
+        width: 400px;
+        border-radius: 8px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 1);
+        border: 1px solid #333;
+        overflow: hidden;
+
+        .modal-top {
+            background: #2d2d30;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+
+            h3 {
+                margin: 0;
+                font-size: 15px;
+            }
+
+            button {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+            }
+        }
+
+        .modal-mid {
+            padding: 40px;
+            text-align: center;
+
+            .upload-cta {
+                background: #0078d4;
+                color: white;
+                padding: 10px 30px;
+                border-radius: 4px;
+                border: none;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: 15px;
+            }
+        }
+    }
+
+    .noticeable-alert {
+        position: fixed;
+        top: 60px;
+        right: 20px;
+        z-index: 9999;
+        padding: 12px 25px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+
+        &.success {
+            background: #107c10;
+        }
+
+        &.error {
+            background: #a4262c;
+        }
+    }
+
+    .o365-status-bar {
+        background: #004a83;
+        color: #ccc;
+        font-size: 11px;
+        padding: 3px 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+.allfoot{
+    display: none;
+}

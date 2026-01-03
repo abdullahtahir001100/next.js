@@ -76,9 +76,12 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: Medium;
+  
 }
 
-
+p{
+  white-space: pre-wrap
+}
 img {
   width: 100%;
 
@@ -159,12 +162,6 @@ label {
   font-weight: 600;
 }
 
-strong {
-  font-family: bold;
-  font-size: 50px;
-  font-weight: 700;
-  color: #FA0201;
-}
 
 .flexcol {
   display: flex;
@@ -173,11 +170,32 @@ strong {
 }
 
 
-
+header,footer{
 li {
   list-style: none;
 }
+}
 
+
+::placeholder {
+  color: #4a4a4abb;
+  font-family: regular;
+  font-weight: 500;
+  font-size: 17px;
+}
+
+html, body {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  
+ 
+}
+
+h1{
+  font-size: 30px;
+  font-family: bold;
+
+}
 
 h5,
 .ticker-link {
@@ -188,18 +206,6 @@ h5,
   font-weight: 500;
   color: #ffffff;
   letter-spacing: 0;
-}
-
-::placeholder {
-  color: #4a4a4abb;
-  font-family: regular;
-  font-weight: 500;
-  font-size: 17px;
-}
-h1{
-  font-size: 30px;
-  font-family: bold;
-
 }
 .btn{
   width: fit-content;
@@ -213,14 +219,32 @@ h1{
   border-radius: 30px;
 
 }
-html, body {
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
-  
- 
-}
+
  body::-webkit-scrollbar {
     display: none !important; 
     width: 0 !important;
     height: 0 !important;
   }
+  .fff{
+    background: #fff !important;
+  }
+ .vrr-body-text {
+    /* Forces the browser to ignore extra spaces/tabs/newlines from the DB */
+    white-space: normal; 
+    
+    /* Treats the paragraph as a clean block with no indents */
+    display: block;
+    text-indent: 0 !important;
+    padding: 0 !important;
+    margin: 0 0 5px 0; /* Keeps a small gap below the text */
+    
+    /* Typography settings to match the image */
+    font-size: 18px;
+    line-height: 1.4;
+    text-align: left;
+}
+
+/* Specific fix if the text is starting with a newline in the DB */
+.vrr-body-text::first-line {
+    vertical-align: top;
+}

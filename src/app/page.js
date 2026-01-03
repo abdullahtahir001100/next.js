@@ -10,11 +10,9 @@ import { useSearch } from './components/search';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import Header from "./components/header_main";
-import Header_1 from "./components/header";
 
-import Animate_slider from "./components/animate_slider";
 import ProductCard from "./components/product_card";
+import QuickViewModal from "./components/QuickViewModal";
 
 // --- CONSTANTS ---
 const FALLBACK_IMG = "https://placehold.co/600x400?text=No+Image";
@@ -38,6 +36,22 @@ export default function Home() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   
   const [loading, setLoading] = useState(true);
+
+  // --- MODAL STATES ---
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // --- MODAL HANDLERS ---
+  const handleQuickView = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    // Optional delay to clear data after animation closes
+    setTimeout(() => setSelectedProduct(null), 300);
+  };
 
   // --- HELPER: CLEAN DATA ---
   const cleanSrc = (src) => {
@@ -76,16 +90,20 @@ export default function Home() {
           fetch('/api/content?type=about_section').then(r => r.json()).catch(() => null),
         ]);
 
-        // 2. Fetch Homepage Sections
-        const [bestRes, swordRes, relatedRes] = await Promise.all([
-          fetch('/api/products?section=best-seller&sort=clicks').then(r => r.json()).catch(() => []),
-          fetch('/api/products?section=sword').then(r => r.json()).catch(() => []),
-          fetch('/api/products?section=related').then(r => r.json()).catch(() => []),
+        // 2. Fetch Homepage Sections (FIXED URL: /api/products)
+        const [bestRes, swordRes, relatedRes, allRes] = await Promise.all([
+          fetch('/api/products?section=best-seller&sort=clicks').then(r => r.json()).catch(() => ({ products: [] })),
+          fetch('/api/products?section=sword').then(r => r.json()).catch(() => ({ products: [] })),
+          fetch('/api/products?section=related').then(r => r.json()).catch(() => ({ products: [] })),
+          fetch('/api/products').then(r => r.json()).catch(() => ({ products: [] })),
         ]);
 
-        // 3. Fetch FULL Inventory for Search (Critical Fix)
-        // This ensures the search bar works for items NOT on the homepage sliders
-        const allRes = await fetch('/api/products').then(r => r.json()).catch(() => []);
+        // Helper to extract product array regardless of API format
+        const extract = (data) => {
+            if (Array.isArray(data)) return data;
+            if (data && Array.isArray(data.products)) return data.products;
+            return [];
+        };
 
         // --- PROCESS & SET STATES ---
         
@@ -110,13 +128,11 @@ export default function Home() {
             src: cleanSrc(aboutRes?.src)
         });
 
-        // Product Sections
-        setBestSellers(Array.isArray(bestRes) ? bestRes.map(cleanProduct) : []);
-        setSwords(Array.isArray(swordRes) ? swordRes.map(cleanProduct) : []);
-        setRelated(Array.isArray(relatedRes) ? relatedRes.map(cleanProduct) : []);
-        
-        // Search List (Use the full inventory fetch)
-        setAllProducts(Array.isArray(allRes) ? allRes.map(cleanProduct) : []);
+        // Product Sections (Using extraction helper to prevent empty UI)
+        setBestSellers(extract(bestRes).map(cleanProduct));
+        setSwords(extract(swordRes).map(cleanProduct));
+        setRelated(extract(relatedRes).map(cleanProduct));
+        setAllProducts(extract(allRes).map(cleanProduct));
 
       } catch (error) {
         console.error("Critical Data Load Error:", error);
@@ -129,7 +145,7 @@ export default function Home() {
 
   // --- SEARCH ANIMATION & LOGIC ---
   useEffect(() => {
-    if (!allProducts) return;
+    if (!allProducts || allProducts.length === 0) return;
 
     if (searchTerm && searchTerm.trim().length > 0) {
       const term = searchTerm.toLowerCase();
@@ -157,13 +173,23 @@ export default function Home() {
   if (loading) return <div style={{height: '100vh', display:'flex', justifyContent:'center', alignItems:'center'}}>Loading...</div>;
 
   return (
-    <>
-     <Animate_slider />
-          <Header />
-          <Header_1 />
+  <main>
+      <>
+      {/* QUICK VIEW POPUP MODAL */}
+      <QuickViewModal 
+        product={selectedProduct} 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal} 
+      />
+
       {/* Hero Slider */}
       <section className="swiper-container-wrapper">
-        <Swiper modules={[Pagination, Autoplay]} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 5000 }}>
+        <Swiper modules={[Pagination, Autoplay]} 
+        slidesPerView={1} 
+        pagination={{ clickable: true }}
+         autoplay={{ delay: 5000 }}
+         loop={true}
+         >
           {heroImages.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="images">
@@ -179,7 +205,9 @@ export default function Home() {
             </SwiperSlide>
           ))}
           {heroImages.length === 0 && (
-             <SwiperSlide>
+             <SwiperSlide 
+               loop={true}
+             >
                  <img src={FALLBACK_IMG} alt="Fallback" style={{ width: '100%', height: 'auto' }} />
              </SwiperSlide>
           )}
@@ -200,8 +228,8 @@ export default function Home() {
       <section className="info-slider">
         <div className="container">
           {infoBar.length > 0 && (
-            <Swiper modules={[Navigation, Autoplay]} spaceBetween={20} slidesPerView={3} navigation
-                breakpoints={{ 320: { slidesPerView: 1 }, 708: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}>
+            <Swiper modules={[Navigation, Autoplay]} spaceBetween={20} slidesPerView={3}    loop={true} navigation
+               breakpoints={{ 320: { slidesPerView: 1 }, 708: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } } }>
                 {infoBar.map((obj, index) => (
                 <SwiperSlide key={index}>
                     <div className="flex">
@@ -227,12 +255,12 @@ export default function Home() {
         <div className="container">
           <div className="flexbox"><h1>Best Seller</h1><Link href='/'>Shop All</Link></div>
           {bestSellers.length > 0 ? (
-            <Swiper modules={[Pagination, Autoplay]} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
-                breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
+            <Swiper modules={[Pagination, Autoplay]} spaceBetween={10} slidesPerView={4}   loop={true} navigation pagination={{ clickable: true }}
+               breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
                 {bestSellers.map((product) => (
                 <SwiperSlide key={product._id}>
                     <div onClick={() => trackProductClick(product._id)} style={{ cursor: 'pointer' }}>
-                        <ProductCard product={product} />
+                        <ProductCard product={product} onQuickView={handleQuickView} />
                     </div>
                 </SwiperSlide>
                 ))}
@@ -246,12 +274,12 @@ export default function Home() {
         <div className="container">
           <div className="flexbox"><h1>Sword</h1><Link href='/'>Shop All</Link></div>
           {swords.length > 0 && (
-            <Swiper modules={[Pagination, Autoplay]} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
-                breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
+            <Swiper modules={[Pagination, Autoplay]}   loop={true} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
+               breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
                 {swords.map((product) => (
                 <SwiperSlide key={product._id}>
                     <div onClick={() => trackProductClick(product._id)} style={{ cursor: 'pointer' }}>
-                        <ProductCard product={product} />
+                        <ProductCard product={product} onQuickView={handleQuickView} />
                     </div>
                 </SwiperSlide>
                 ))}
@@ -299,9 +327,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Related Products */}
-    
-
       {/* About Section */}
       <section className='about'>
         <div className="container">
@@ -326,16 +351,18 @@ export default function Home() {
           </div>
         </div>
       </section>
-        <section className="products">
+
+      {/* Related Products */}
+      <section className="products">
         <div className="container">
           <div className="flexbox"><h1>Related Products</h1><Link href='/'>Shop All</Link></div>
           {related.length > 0 && (
-             <Swiper modules={[Pagination, Autoplay]} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
+             <Swiper modules={[Pagination, Autoplay]}  loop={true} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
              breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
              {related.map((product) => (
                <SwiperSlide key={product._id}>
                   <div onClick={() => trackProductClick(product._id)} style={{ cursor: 'pointer' }}>
-                     <ProductCard product={product} />
+                     <ProductCard product={product} onQuickView={handleQuickView} />
                   </div>
                </SwiperSlide>
              ))}
@@ -343,14 +370,15 @@ export default function Home() {
           )}
         </div>
       </section>
-      {/* Search Popup - Now fully functional */}
+
+      {/* Search Popup */}
       <aside ref={popupRef} style={{ display: 'none', opacity: 0 }} className="pop_search">
           <div className="search_results">
             {filteredProducts.length > 0 ? (
                 filteredProducts.map(p => (
                 <Link 
                     key={p._id} 
-                    href={`/product/${p._id}`} 
+                    href={`/detailProduct/${p._id}`} 
                     className="search_item"
                     onClick={() => trackProductClick(p._id)} 
                     style={{display: 'flex', alignItems: 'center', padding: '10px', textDecoration: 'none', borderBottom: '1px solid #eee'}}
@@ -376,5 +404,6 @@ export default function Home() {
           </div>
       </aside>
     </>
+  </main>
   );
 }
