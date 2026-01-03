@@ -251,7 +251,7 @@ export default function Header() {
                         <nav className="links">
                             <div className="icons">
                                 <div className="flex" style={{ display: 'flex', gap: '20px' }}>
-                                    <IconLink href="/wishlist" icon={ICONS.wishlist} label="Wish List" />
+                                    <IconLink href="/Whitelist" icon={ICONS.wishlist} label="Wish List" />
                                     <IconLink href="/account" icon={ICONS.profile} label="Sign In" />
                                     <IconLink href="/cart" icon={ICONS.cart} label="Cart" count={3} />
                                 </div>
