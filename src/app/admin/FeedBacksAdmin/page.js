@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { jsPDF } from 'jspdf'; // Professional PDF Library
 import './feedback.scss';
 import Bar from "../AdminLayout";
+import VikingLoader from "../../components/VikingLoader";
 
 export default function FeedbackDashboard() {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -131,7 +132,7 @@ export default function FeedbackDashboard() {
     })
   };
 
-  if (loading) return <div className="loader-container">Initializing Dashboard...</div>;
+  if (loading) return <div className="loader-container"><VikingLoader/></div>;
 
   return (
     <div className="vab-admin-main">

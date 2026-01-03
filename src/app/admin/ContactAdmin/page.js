@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Bar from "../AdminLayout";
-
+import VikingLoader from "../../components/VikingLoader";
 export default function AdminDashboard() {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
     }
   };
 
-  if (loading) return <div className="admin-loader">Initializing Dashboard...</div>;
+  if (loading) return <div className="admin-loader"><VikingLoader/></div>;
 
   return (
     <div className="admin-wrapper">

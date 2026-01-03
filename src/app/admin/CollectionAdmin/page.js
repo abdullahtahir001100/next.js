@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './armory-admin.scss';
 import Bar from "../AdminLayout";
-
+import VikingLoader from "../../components/VikingLoader";
 // --- ICONS ---
 const Icons = {
   Plus: () => <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path d="M12 4v16m8-8H4" /></svg>,
@@ -120,7 +120,7 @@ export default function ArmoryCMS() {
     } catch { triggerToast("Sync Failed!"); }
   };
 
-  if (!data) return <div className="vab-admin-portal">Loading Armory...</div>;
+  if (!data) return <div className="vab-admin-portal"><VikingLoader/></div>;
 
   return (
 

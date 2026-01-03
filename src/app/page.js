@@ -11,6 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import VikingLoader from "./components/VikingLoader";
 import ProductCard from "./components/product_card";
 import QuickViewModal from "./components/QuickViewModal";
 
@@ -170,7 +171,7 @@ export default function Home() {
     }
   }, [searchTerm, allProducts]);
 
-  if (loading) return <div style={{height: '100vh', display:'flex', justifyContent:'center', alignItems:'center'}}>Loading...</div>;
+  if (loading) return <div><VikingLoader /></div>;
 
   return (
   <main>
