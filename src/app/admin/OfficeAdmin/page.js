@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import mammoth from 'mammoth'; 
 import './dashboard.scss';
 import 'react-quill-new/dist/quill.snow.css';
-
+import Bar from "../AdminLayout";
 const ReactQuill = dynamic(() => import('react-quill-new'), { 
   ssr: false,
   loading: () => <div className="o365-boot-screen">
@@ -121,6 +121,7 @@ export default function VikingOfficeUltimate() {
 
   return (
     <div id="viking-dashboard-scope">
+      <Bar />
       <div className="o365-container">
         {toast.show && (
           <div className={`noticeable-alert ${toast.type}`}>

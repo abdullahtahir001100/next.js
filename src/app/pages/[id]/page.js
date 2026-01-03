@@ -3,7 +3,7 @@ import PageContent from '@/lib/models/PageContent';
 
 // Next.js dynamic params se 'id' pick karega
 export default async function DynamicPage({ params }) {
-  // URL se slug extract karna (e.g., /page/about ya /page/whitelist)
+  // URL se slug extract karna (e.g., /pages/about ya /Whitelist)
   const { id } = await params; 
 
   await connectDB();

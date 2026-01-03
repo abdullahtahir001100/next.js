@@ -1,234 +1,359 @@
   /* ===================== RESPONSIVE MEDIA QUERIES ===================== */
 
-/* Table and Large Tablets */
-@media (max-width: 1024px) {
-    .main_header {
-        .field { width: 45%; }
-        .links { width: 30%; }
-    }
+  /* Table and Large Tablets */
+  @media (max-width: 1024px) {
+      .main_header {
+          .field {
+              width: 45%;
+          }
 
-    .about {
-        padding: 2rem 1rem;
-        .flex {
-            gap: 2rem;
-            h1 { font-size: 2.2rem; }
-        }
-    }
-}
+          .links {
+              width: 30%;
+          }
+      }
 
-/* Tablets and Mobile Landscape */
-@media (max-width: 768px) {
-    .about .flex .col_ .content{
-        align-items: center;
-    }
-    .main_header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 3;
-    
-      
-                    
-        .logo { width: 30%; }
-        .field { display: none; } // Typically hide search on mobile or move to a toggle
-        .links { width: auto; }
-        
-        .num_order {
-            left: 35%;
-        }
-    }
-    .image-grid-section {
-        .flex{
-            gap: 15px;
-        }
-    }
-    .banner_ad .flex {
-        flex-wrap: wrap;
-        text-align: center;
-        gap: 10px;
-        
-        h4 { font-size: 14px; }
-    }
+      .about {
+          padding: 2rem 1rem;
 
-    .image-grid-section {
-        h1 { font-size: 28px; }
-        .container .flex {
-            flex-wrap: wrap;
-            gap: 15px;
-            .col_ {
-                width: 100% !important; // Stack images on mobile
-            }
-        }
-    }
+          .flex {
+              gap: 2rem;
 
-    .about {
-        .flex {
-            flex-direction: column;
-            .col_ {
-                width: 100%;
-                text-align: center;
-            }
+              h1 {
+                  font-size: 2.2rem;
+              }
+          }
+      }
+      .gallery-section{
+        .image-stage{
+            width: 400px !important;
         }
-    }
+      }
+  }
 
-    footer {
-        .viking-newsletter {
-            input { width: 100%; margin-bottom: 10px; }
-            button { width: 100%; margin-left: 0; }
-        }
-        
-        .viking-main {
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .viking-col {
-            width: 100%;
-            text-align: center;
-        }
-    }
-
-    .viking-bottom {
+  /* Tablets and Mobile Landscape */
+  @media (max-width: 768px) {
+    .review-container{
         flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-}
-@media (max-width: 600px){
-   .product-image-wrapper {
-       
-           height: 230px !important;
-        
-    }
-}
-/* Small Mobile Devices */
-
-@media (max-width: 500px) {
-     .product-image-wrapper {
-       
-           height: 200px !important;
-        
-    }
-    .products {
-        padding: 2rem 0;
-        
-        .flexbox {
-         
-           
-            gap: 10px;
-            
-            h1 { font-size: 24px; }
+        .review-form,.reviews{
+            width: 100% !important;
+            position: relative !important;
         }
     }
-    .products .buttons .btn{
-        width: fit-content;
-           padding: 0px 1rem;
-    font-size: 13px;
-    height: 28px;
-    }
-    .quick-view button{
-        font-size: 7px;
-    }
-    .viking-ticker {
-        .ticker-item {
-            font-size: 12px;
-            gap: 10px;
+    .description-content{
+        flex-direction: column;
+        .pos,.boxer{
+            width: 100%;
         }
     }
-
-
-    .main_header {
-        .logo .image {
-            width: 100px;
-        }
-        
-        .links .icons .con span {
-            display: none; // Hide text labels for icons on very small screens
-        }
+    .product-page-wrapper{
+        padding: 0 15px !important;
     }
+    .thumb-list{position: relative !important;flex-direction: row !important;}
+    .main-grid{
+        flex-direction: column;
+            position: relative;
+    top: -38px;
+    .info-section{
+        padding-top: 2rem;
+    }
+    }
+       .gallery-section{
+        flex-direction: column-reverse;
+        position:  relative !important;
 
-    .about {
-        h1 { font-size: 24px !important; }
-        p { font-size: 14px; }
-    }
-     .banner_ad .flex {
-        flex-wrap: wrap;
-        text-align: center;
-        gap: 10px;
-        
-        h4 { font-size: 12px; }
-    }
-}
-@media (max-width: 768px) {
-    .header{
-        display: none;
-    }
-      .logo{
-                display: none;
-            }
-    .main_header {
-        .flexbox {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .image-stage{
+            width: 100% !important;
+            position: relative !important;
         }
+      }
 
-        /* Hide Desktop-only elements */
-        .desktop_only {
-            display: none !important;
-        }
-
-        /* Show Mobile Burger and Search (Left) */
-        .mobile_triggers {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+      main ,.whitelist-main{
+          margin: 4rem 0;
           
-            button {
-                background: transparent;
-                border: none;
-                padding: 0;
-                cursor: pointer;
-            }
-        }
+      }
+      .horizontal .image-side{
+        width: 30% !important;
+      }
+      .about .flex .col_ .content {
+          align-items: center;
+      }
 
-        .links {
-            width: auto;
+      .main_header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 3;
 
-            .icons .flex {
-                display: flex;
-                gap: 15px;
-                align-items: center;
 
-                /* Hide the Heart Icon (Wishlist) Link */
-                a[href="/wishlist"] {
-                    display: none;
-                }
 
-                .con {
-                    /* Hide text labels "Sign In", "Cart" */
-                    .icon_text {
-                        display: none;
-                    }
-                }
-            }
-        }
+          .logo {
+              width: 30%;
+          }
 
-        /* Adjust Cart badge position for mobile */
-        .num_order {
-            // top: -10px !important;
-            // left: 14px !important;
-            padding: 1px 5px !important;
-            font-size: 10px !important;
+          .field {
+              display: none;
+          }
+
+          // Typically hide search on mobile or move to a toggle
+          .links {
+              width: auto;
+          }
+
+          .num_order {
+              left: 35%;
+          }
+      }
+
+      .image-grid-section {
+          .flex {
+              gap: 15px;
+          }
+      }
+
+      .banner_ad .flex {
+          flex-wrap: wrap;
+          text-align: center;
+          gap: 10px;
+
+          h4 {
+              font-size: 14px;
+          }
+      }
+
+      .image-grid-section {
+          h1 {
+              font-size: 28px;
+          }
+
+          .container .flex {
+              flex-wrap: wrap;
+              gap: 15px;
+
+              .col_ {
+                  width: 100% !important; // Stack images on mobile
+              }
+          }
+      }
+
+      .about {
+          .flex {
+              flex-direction: column;
+
+              .col_ {
+                  width: 100%;
+                  text-align: center;
+              }
+          }
+      }
+
+      footer {
+          .viking-newsletter {
+              input {
+                  width: 100%;
+                  margin-bottom: 10px;
+              }
+
+              button {
+                  width: 100%;
+                  margin-left: 0;
+              }
+          }
+
+          .viking-main {
+              flex-direction: column;
+              gap: 30px;
+          }
+
+          .viking-col {
+              width: 100%;
+              text-align: center;
+          }
+      }
+
+      .viking-bottom {
+          flex-direction: column;
+          gap: 20px;
+          text-align: center;
+      }
+  }
+
+  @media (max-width: 600px) {
+      .product-image-wrapper {
+
+          height: 230px !important;
+
+      }
+  }
+
+  /* Small Mobile Devices */
+
+  @media (max-width: 500px) {
+    .product-title_main{
+        font-size: 10px;
+    }
+    .tab-nav{
+        justify-content: space-between;
+        .tab-trigger{
+            font-size: 14px;
         }
     }
-}
+    .view-grid-3 {
+        h3{
+             height: 10vh;
+            overflow: scroll;
+        }
+    }
+     .horizontal {
+        .item-description{
+            height: 10vh;
+            overflow: scroll;
+        }
+        .image-side{
+        width: 40% !important;
+      }}
+      .product-image-wrapper {
 
-@media (max-width: 400px){
-    .product-image-wrapper {
-         
-              height: 130px !important;
-          
-     }
-}
+          height: 200px !important;
+
+      }
+
+      .products {
+          padding: 2rem 0;
+
+          .flexbox {
+
+
+              gap: 10px;
+
+              h1 {
+                  font-size: 24px;
+              }
+          }
+      }
+
+      .products .buttons .btn {
+          width: fit-content;
+          padding: 0px 1rem;
+          font-size: 13px;
+          height: 28px;
+      }
+
+      .quick-view button {
+          font-size: 7px;
+      }
+
+      .viking-ticker {
+          .ticker-item {
+              font-size: 12px;
+              gap: 10px;
+          }
+      }
+
+
+      .main_header {
+          .logo .image {
+              width: 100px;
+          }
+
+          .links .icons .con span {
+              display: none; // Hide text labels for icons on very small screens
+          }
+      }
+
+      .about {
+          h1 {
+              font-size: 24px !important;
+          }
+
+          p {
+              font-size: 14px;
+          }
+      }
+
+      .banner_ad .flex {
+          flex-wrap: wrap;
+          text-align: center;
+          gap: 10px;
+
+          h4 {
+              font-size: 12px;
+          }
+      }
+  }
+
+  @media (max-width: 768px) {
+      .header {
+          display: none;
+      }
+
+      .logo {
+          display: none;
+      }
+
+      .main_header {
+          .flexbox {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+          }
+
+          /* Hide Desktop-only elements */
+          .desktop_only {
+              display: none !important;
+          }
+
+          /* Show Mobile Burger and Search (Left) */
+          .mobile_triggers {
+              display: flex;
+              align-items: center;
+              gap: 15px;
+
+              button {
+                  background: transparent;
+                  border: none;
+                  padding: 0;
+                  cursor: pointer;
+              }
+          }
+
+          .links {
+              width: auto;
+
+              .icons .flex {
+                  display: flex;
+                  gap: 15px;
+                  align-items: center;
+
+                  /* Hide the Heart Icon (Wishlist) Link */
+                  a[href="/wishlist"] {
+                      display: none;
+                  }
+
+                  .con {
+
+                      /* Hide text labels "Sign In", "Cart" */
+                      .icon_text {
+                          display: none;
+                      }
+                  }
+              }
+          }
+
+          /* Adjust Cart badge position for mobile */
+          .num_order {
+              // top: -10px !important;
+              // left: 14px !important;
+              padding: 1px 5px !important;
+              font-size: 10px !important;
+          }
+      }
+  }
+
+  @media (max-width: 400px) {
+      .product-image-wrapper {
+
+          height: 130px !important;
+
+      }
+  }

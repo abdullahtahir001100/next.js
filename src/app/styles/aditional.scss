@@ -1,0 +1,253 @@
+// --- VARIABLES ---
+$primary: #3b82f6; // Brand Blue
+$bg: #ffffff; // Sidebar Background
+$hover: #f1f5f9; // Hover Item
+$text: #64748b; // Text Color
+$active-text: #1e293b;
+$border: #e2e8f0;
+
+// --- 1. GLOBAL HEADER (Visible on All Screens) ---
+.vab-global-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid $border;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    z-index: 40;
+
+    .left-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .burger-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: $active-text;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+
+            &:hover {
+                background: $hover;
+                color: $primary;
+            }
+
+            svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        .brand-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: $active-text;
+            letter-spacing: -0.5px;
+
+            span {
+                color: $primary;
+            }
+        }
+    }
+
+    .right-section {
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: $primary;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+    }
+}
+
+// --- 2. BACKDROP OVERLAY ---
+.vab-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 945;
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+
+    &.open {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+// --- 3. SIDEBAR COMPONENT ---
+.vab-sidebar {
+    width: 280px;
+    height: 100vh;
+    background: $bg;
+    border-right: 1px solid $border;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99950;
+    transform: translateX(-100%); // Hidden by default
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px -10px rgba(0, 0, 0, 0.1);
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    // Slide in
+
+    // --- BRAND HEADER INSIDE SIDEBAR ---
+    .sidebar-header {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        border-bottom: 1px solid $border;
+
+        h2 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0;
+
+            span {
+                color: $primary;
+            }
+        }
+
+        .close-btn {
+            background: #f1f5f9;
+            border: none;
+            cursor: pointer;
+            color: #64748b;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+
+            &:hover {
+                background: #fee2e2;
+                color: #ef4444;
+            }
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+
+    // --- NAVIGATION ---
+    .nav-menu {
+        flex: 1;
+        padding: 20px 15px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .menu-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #94a3b8;
+            font-weight: 800;
+            padding: 10px 12px;
+            margin-top: 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: $text;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                color: $text;
+                transition: 0.2s;
+            }
+
+            &:hover {
+                background: $hover;
+                color: $active-text;
+
+                svg {
+                    color: $primary;
+                }
+            }
+
+            &.active {
+                background: #eff6ff;
+                color: $primary;
+
+                svg {
+                    color: $primary;
+                }
+            }
+        }
+    }
+
+    // --- FOOTER ---
+    .user-footer {
+        padding: 20px;
+        border-top: 1px solid $border;
+
+        .logout-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid $border;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #ef4444;
+            transition: 0.2s;
+
+            &:hover {
+                background: #fef2f2;
+                border-color: #fee2e2;
+            }
+
+            svg {
+                width: 18px;
+            }
+        }
+    }
+}

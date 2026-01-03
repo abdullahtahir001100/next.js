@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Bar from "../AdminLayout";
 
 export default function AdminDashboard() {
   const [settings, setSettings] = useState({});
@@ -61,7 +62,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-wrapper">
-      
+      <Bar />
       {/* --- PREMIUM SVG NOTIFICATION POPUP --- */}
       {notification.visible && (
         <div className={`vab-toast ${notification.type}`}>

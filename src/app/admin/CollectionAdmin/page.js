@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './armory-admin.scss';
+import Bar from "../AdminLayout";
 
 // --- ICONS ---
 const Icons = {
@@ -122,7 +123,9 @@ export default function ArmoryCMS() {
   if (!data) return <div className="vab-admin-portal">Loading Armory...</div>;
 
   return (
+
     <div className="vab-admin-portal">
+      <Bar />
       <div className="vab-container">
         
         {/* --- TOAST --- */}

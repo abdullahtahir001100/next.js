@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { motion, AnimatePresence } from 'framer-motion';
 import { jsPDF } from 'jspdf'; // Professional PDF Library
 import './feedback.scss';
+import Bar from "../AdminLayout";
 
 export default function FeedbackDashboard() {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -134,7 +135,7 @@ export default function FeedbackDashboard() {
 
   return (
     <div className="vab-admin-main">
-      
+      <Bar />
       {/* 1. CUSTOM JS CONFIRMATION POPUP */}
       <AnimatePresence>
         {confirmModal.visible && (

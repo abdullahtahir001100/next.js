@@ -1,7 +1,9 @@
 "use client";
+
 import React, { useState, useEffect, useRef } from 'react';
 import Editor from '@monaco-editor/react';
 import './dashboard.scss';
+import Bar from "../AdminLayout";
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
 const TABS = [
@@ -145,7 +147,9 @@ export default function VSDashboard() {
   const currentFile = files[activeFileIndex] || {};
 
   return (
+
     <div className="vs-container">
+      <Bar />
       {/* --- NOTICEABLE TOAST SYSTEM --- */}
       {toast.show && (
         <div className={`vs-toast-fixed ${toast.type}`}>

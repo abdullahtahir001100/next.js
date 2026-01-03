@@ -38,10 +38,10 @@ export default function Footer() {
                 <h4>INFORMATION</h4>
                 <ul>
                   <li><Link href="/">Home Page</Link></li>
-                  <li><Link href="/page/page/about">About Us</Link></li>
-                  <li><Link href="/page/contact">Contact Us</Link></li>
+                  <li><Link href="/pages/pages/about">About Us</Link></li>
+                  <li><Link href="/pages/contact">Contact Us</Link></li>
                   <li><Link href="/Collection">Collections</Link></li>
-                  <li><Link href="/page/whitelist">Wishlist</Link></li>
+                  <li><Link href="/Whitelist">Wishlist</Link></li>
                 </ul>
               </div>
 
@@ -64,9 +64,9 @@ export default function Footer() {
               <div className="viking-col">
                 <h4>CUSTOMER SERVICE</h4>
                 <ul>
-                  <li><Link href="/page/general-conditions">General Conditions Of Sale And Use</Link></li>
-                  <li><Link href="/page/return-refund">Returns & Refunds</Link></li>
-                  <li><Link href="/page/shipping-delivery">Shipping & Delivery Policy</Link></li>
+                  <li><Link href="/pages/general-conditions">General Conditions Of Sale And Use</Link></li>
+                  <li><Link href="/pages/return-refund">Returns & Refunds</Link></li>
+                  <li><Link href="/pages/shipping-delivery">Shipping & Delivery Policy</Link></li>
                   <li><Link href="/">Orders</Link></li>
                 </ul>
               </div>

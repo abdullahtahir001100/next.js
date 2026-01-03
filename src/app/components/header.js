@@ -51,7 +51,7 @@ export default function Header() {
                                 <Link href="#">Display & Accessories</Link>
                             </li>
                             <li>
-                                <Link href="/page/about">About Us</Link>
+                                <Link href="/pages/about">About Us</Link>
                             </li>
                             <li>
                                 <Link href="/ContactUs">Contact</Link>

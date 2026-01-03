@@ -1226,7 +1226,7 @@ footer {
         position: relative;
         background: var(--background);
         padding: 80px 0;
-        z-index: 3;
+        z-index: 1;
 
         .inner-content {
             max-width: 800px;
@@ -1279,7 +1279,7 @@ footer {
         height: 300px;
 
         h1 {
-            font-size: 32px;
+            font-size: 30px !important;
         }
     }
 }
@@ -2738,4 +2738,7 @@ body {
       }
     }
   }
+}
+.mobile-sidebar{
+    z-index: 99999;
 }

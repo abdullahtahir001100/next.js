@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 
 import './Dashboard.scss';
+import Bar from "../AdminLayout";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("products");
@@ -285,6 +286,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-layout">
+      <Bar />
       {/* PROFESSIONAL HEADER */}
       <header className="dashboard-header">
         <div className="header-container">
