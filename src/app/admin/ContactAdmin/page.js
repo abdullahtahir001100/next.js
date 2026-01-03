@@ -211,7 +211,10 @@ export default function AdminDashboard() {
           gap: 10px;
           transition: all 0.2s;
         }
-
+          .save-btn svg{
+          width: 32px;
+          height: 100%  !important;
+          }
         .save-btn:hover { background: #333; transform: translateY(-2px); }
         .btn-icon { width: 18px; height: 18px; }
 
