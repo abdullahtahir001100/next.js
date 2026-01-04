@@ -1588,6 +1588,7 @@ $text-muted: #666666;
         display: flex;
         position: sticky;
         top: 30px;
+       
         gap: 20px;
         align-items: flex-start;
 
@@ -1642,9 +1643,11 @@ $text-muted: #666666;
     }
 
     .info-section {
+          width: 45%;
         .product-title {
             font-size: 20px;
             font-family: 'bold';
+          
             margin-bottom: 10px;
         }
 
@@ -2105,6 +2108,7 @@ $bg-light: #f9f9f9;
     .gallery-section {
         display: flex;
         gap: 15px;
+        width: 55%;
 
         .thumb-list {
             display: flex;

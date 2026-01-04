@@ -5,7 +5,6 @@ export default function Header() {
         <header className='header'>
             <div className="contain">
                 <nav>
-                    {/* Added a main-nav class for easier targeting */}
                     <ul className="main-nav"> 
                         <div className="flexwrap">
                             <li>
@@ -14,47 +13,53 @@ export default function Header() {
 
                             {/* DROPDOWN 1: SWORDS */}
                             <li className="dropdown-parent">
-                                <Link href="#">Swords</Link>
+                                <Link href="/Products/Swords">Swords</Link>
                                 <ul className="dropdown-menu">
-                                    <li><Link href="#">Fantasy Sword</Link></li>
-                                    {/* Add more sword types here if needed */}
+                                    <li><Link href="/Products/Swords">Fantasy Sword</Link></li>
+                                    <li><Link href="/Products/Swords">Viking Swords</Link></li>
                                 </ul>
                             </li>
 
                             <li>
-                                <Link href="#">Axes</Link>
+                                <Link href="/Products/Axes">Axes</Link>
                             </li>
+                            
                             <li>
-                                <Link href="#">Knives & Daggers</Link>
+                                <Link href="/Products/Knives%20%26%20Daggers">Knives & Daggers</Link>
                             </li>
 
                             {/* DROPDOWN 2: SPEARS & POLEARMS */}
                             <li className="dropdown-parent">
-                                <Link href="#">Spears & Polearms</Link>
+                                <Link href="/Products/Spears%20%26%20Polearms">Spears & Polearms</Link>
                                 <ul className="dropdown-menu">
-                                    <li><Link href="#">Pocket Knives</Link></li>
-                                    <li><Link href="#">Dagger Knives</Link></li>
-                                    <li><Link href="#">Hunting Knives</Link></li>
+                                    <li><Link href="/Products/Spears%20%26%20Polearms">Pocket Knives</Link></li>
+                                    <li><Link href="/Products/Spears%20%26%20Polearms">Dagger Knives</Link></li>
+                                    <li><Link href="/Products/Spears%20%26%20Polearms">Hunting Knives</Link></li>
                                 </ul>
                             </li>
 
                             <li>
-                                <Link href="#">Chef Set</Link>
+                                <Link href="/Products/Chef%20Set">Chef Set</Link>
                             </li>
+                            
                             <li>
-                                <Link href="#">Hammers & Maces</Link>
+                                <Link href="/Products/Hammers%20%26%20Maces">Hammers & Maces</Link>
                             </li>
+                            
                             <li>
-                                <Link href="#">Shields & Armor</Link>
+                                <Link href="/Products/Shields%20%26%20Armor">Shields & Armor</Link>
                             </li>
+                            
                             <li>
-                                <Link href="#">Display & Accessories</Link>
+                                <Link href="/Products/Display%20%26%20Accessories">Display & Accessories</Link>
                             </li>
+
                             <li>
                                 <Link href="/pages/about">About Us</Link>
                             </li>
+                            
                             <li>
-                                <Link href="/ContactUs">Contact</Link>
+                                <Link href="/pages/contact">Contact</Link>
                             </li>
                         </div>
                     </ul>

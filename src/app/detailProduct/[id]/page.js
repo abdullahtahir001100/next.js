@@ -1,30 +1,39 @@
 import { connectDB } from "@/lib/db";
 import Product from "@/lib/models/Product";
+import ShopProducts from '@/lib/models/ShopProducts';
 import ProductPageClient from "../page";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }) {
-  // Next.js 15+ requires awaiting params
+  // 1. Await params for Next.js 15 compatibility
   const { id } = await params;
 
   try {
     await connectDB();
 
-    // Fetch product using .lean() for better performance
-    const product = await Product.findById(id).lean();
+    // 2. Attempt to find the product in the first model
+    let productData = await Product.findById(id).lean();
 
-    // If ID doesn't exist in MongoDB, show the 404 page
-    if (!product) {
+    // 3. If not found in 'Product', try 'ShopProducts'
+    if (!productData) {
+      productData = await ShopProducts.findById(id).lean();
+    }
+
+    // 4. If it's not in either, trigger 404
+    if (!productData) {
       return notFound();
     }
 
-    // Serialize MongoDB Data (converts ObjectIDs/Dates to Strings)
-    const serializedProduct = JSON.parse(JSON.stringify(product));
+    // 5. Serialize MongoDB Data
+    // This converts _id (ObjectId) to a string and dates to ISO strings
+    const serializedProduct = JSON.parse(JSON.stringify(productData));
 
+    // 6. Return the Client Component with the found product
     return <ProductPageClient product={serializedProduct} />;
+
   } catch (error) {
     console.error("Database Fetch Error:", error);
-    // If the ID format is totally wrong (e.g. '123'), show 404
+    // Handles invalid ObjectId formats or connection drops
     return notFound();
   }
 }

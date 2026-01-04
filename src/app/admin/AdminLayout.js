@@ -27,7 +27,7 @@ export default function Sidebar() {
 
   // Links with specific icons and routes
   const links = [
-    { title: "Dashboard", href: "/admin/Dashboard", icon: <Icons.Grid /> },
+    { title: "Dashboard", href: "/admin//ShopProductsAdmin", icon: <Icons.Grid /> },
     { title: "Collections", href: "/admin/CollectionAdmin", icon: <Icons.Sword /> },
     { title: "Products", href: "/admin/ProductsAdmin", icon: <Icons.Tag /> },
     { title: "Orders", href: "/admin/Orders", icon: <Icons.Cart /> },

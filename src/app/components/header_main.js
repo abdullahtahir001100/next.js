@@ -22,32 +22,31 @@ const MENU_DATA = [
     { label: 'Home', href: '/' },
     { 
         label: 'Swords', 
-        href: '#', 
+        href: '/Products/Swords', 
         children: [
-            { label: 'Fantasy Sword', href: '#' },
-            { label: 'Katana', href: '#' },
-            { label: 'Claymore', href: '#' },
+            { label: 'Fantasy Sword', href: '/Products/Swords' },
+            { label: 'Katana', href: '/Products/Swords' },
+            { label: 'Claymore', href: '/Products/Swords' },
         ] 
     },
-    { label: 'Axes', href: '#' },
-    { label: 'Knives & Daggers', href: '#' },
+    { label: 'Axes', href: '/Products/Axes' },
+    { label: 'Knives & Daggers', href: '/Products/Knives%20%26%20Daggers' },
     { 
         label: 'Spears & Polearms', 
-        href: '#',
+        href: '/Products/Spears%20%26%20Polearms',
         children: [
-            { label: 'Pocket Knives', href: '#' },
-            { label: 'Dagger Knives', href: '#' },
-            { label: 'Hunting Knives', href: '#' },
+            { label: 'Pocket Knives', href: '/Products/Spears%20%26%20Polearms' },
+            { label: 'Dagger Knives', href: '/Products/Spears%20%26%20Polearms' },
+            { label: 'Hunting Knives', href: '/Products/Spears%20%26%20Polearms' },
         ]
     },
-    { label: 'Chef Set', href: '#' },
-    { label: 'Hammers & Maces', href: '#' },
-    { label: 'Shields & Armor', href: '#' },
-    { label: 'Display & Accessories', href: '#' },
+    { label: 'Chef Set', href: '/Products/Chef%20Set' },
+    { label: 'Hammers & Maces', href: '/Products/Hammers%20%26%20Maces' },
+    { label: 'Shields & Armor', href: '/Products/Shields%20%26%20Armor' },
+    { label: 'Display & Accessories', href: '/Products/Display%20%26%20Accessories' },
     { label: 'About Us', href: '/pages/about' },
-    { label: 'Contact', href: '/ContactUs' },
+    { label: 'Contact', href: '/pages/contact' },
 ];
-
 
 function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -286,7 +285,7 @@ export default function Header() {
                                 <div className="flex" style={{ display: 'flex', gap: '20px' }}>
                                     <IconLink href="/Whitelist" icon={ICONS.wishlist} label="Wish List" count={wishlistCount > 0 ? wishlistCount : undefined} />
                                     <IconLink href="/account" icon={ICONS.profile} label="Sign In" />
-                                    <IconLink href="/cart" icon={ICONS.cart} label="Cart" count={cartCount > 0 ? cartCount : undefined} />
+                                    <IconLink href="/Cart" icon={ICONS.cart} label="Cart" count={cartCount > 0 ? cartCount : undefined} />
                                 </div>
                             </div>
                         </nav>

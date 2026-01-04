@@ -99,7 +99,7 @@ export default function WhitelistProductsPage() {
                   <span className="sale-price">${item.onSale ? item.salePrice : item.price}</span>
                 </div>
 
-                <Link href={`/product/${item._id}`}>
+                <Link href={`/detailProduct/${item._id}`}>
                   <button className="buy-btn">Buy Now</button>
                 </Link>
               </div>

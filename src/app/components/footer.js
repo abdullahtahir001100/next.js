@@ -2,66 +2,71 @@ import Link from "next/link";
 import Image from "next/image";
 
 const IMG = {
-  loc: "public/visa.png",
+  loc: "https://www.javehandmade.store/3.png",
   tel: "https://www.javehandmade.store/telephone.png",
   mail: "https://www.javehandmade.store/mail.png",
   adress: "https://www.javehandmade.store/3.png",
-  visa: "/visa.png",
-  mc: "https://www.javehandmade.store/3.png",
-  ae: "https://www.javehandmade.store/3.png",
-  ap: "https://www.javehandmade.store/mail.png",
+  visa: "/visa.png", // Ensure this exists in your public folder
 };
+
+const categories = [
+  { name: "Swords", slug: "Swords" },
+  { name: "Axes", slug: "Axes" },
+  { name: "Knives & Daggers", slug: "Knives %26 Daggers" },
+  { name: "Chef Set", slug: "Chef Set" },
+  { name: "Spears & Polearms", slug: "Spears %26 Polearms" },
+  { name: "Hammers & Maces", slug: "Hammers %26 Maces" },
+  { name: "Shields & Armor", slug: "Shields %26 Armor" },
+  { name: "Display & Accessories", slug: "Display %26 Accessories" },
+];
 
 export default function Footer() {
   return (
     <div className="allfoot">
-      <>
-        <footer className="viking-footer">
-          <div className="viking-container">
+      <footer className="viking-footer">
+        <div className="viking-container">
 
-            {/* Newsletter Section */}
-            <div className="viking-newsletter">
-              <div className="viking-newsletter__text">
-                <h3>NEWSLETTER SIGN UP</h3>
-                <p>Receive our latest updates about our products and promotions.</p>
-              </div>
-              <form className="viking-newsletter__form">
-                <input type="email" placeholder="enter your email address" />
-                <button type="submit">SUBMIT</button>
-              </form>
+          {/* Newsletter Section */}
+          <div className="viking-newsletter">
+            <div className="viking-newsletter__text">
+              <h3>NEWSLETTER SIGN UP</h3>
+              <p>Receive our latest updates about our products and promotions.</p>
+            </div>
+            <form className="viking-newsletter__form" onSubmit={(e) => e.preventDefault()}>
+              <input type="email" placeholder="enter your email address" required />
+              <button type="submit">SUBMIT</button>
+            </form>
+          </div>
+
+          {/* Content Section */}
+          <div className="viking-main">
+
+            {/* Column 1: Info */}
+            <div className="viking-col">
+              <h4>INFORMATION</h4>
+              <ul>
+                <li><Link href="/">Home Page</Link></li>
+                <li><Link href="/pages/about">About Us</Link></li>
+                <li><Link href="/pages/contact">Contact Us</Link></li>
+                <li><Link href="/collections/Swords">Collections</Link></li>
+                <li><Link href="/Whitelist">Wishlist</Link></li>
+              </ul>
             </div>
 
-            {/* Content Section */}
-            <div className="viking-main">
+            {/* Column 2: Dynamic Categories */}
+            <div className="viking-col">
+              <h4>OUR CATEGORIES</h4>
+              <ul>
+                {categories.map((cat, idx) => (
+                  <li key={idx}>
+                    <Link href={`/Products/${cat.slug}`}>{cat.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              <div className="viking-col">
-                <h4>INFORMATION</h4>
-                <ul>
-                  <li><Link href="/">Home Page</Link></li>
-                  <li><Link href="/pages/pages/about">About Us</Link></li>
-                  <li><Link href="/pages/contact">Contact Us</Link></li>
-                  <li><Link href="/Collection">Collections</Link></li>
-                  <li><Link href="/Whitelist">Wishlist</Link></li>
-                </ul>
-              </div>
-
-              <div className="viking-col">
-                <h4>OUR CATEGORIES</h4>
-                <ul>
-                  <li><Link href="/">Swords</Link></li>
-                  <li><Link href="/">Axes</Link></li>
-                  <li><Link href="/">Knives & Daggers</Link></li>
-                  <li><Link href="/">Chef Set</Link></li>
-                  <li><Link href="/">Spears & Polearms</Link></li>
-                  <li><Link href="/">Swords</Link></li>
-                  <li><Link href="/">Axes</Link></li>
-                  <li><Link href="/">Knives & Daggers</Link></li>
-                  <li><Link href="/">Chef Set</Link></li>
-                  <li><Link href="/">Spears & Polearms</Link></li>
-                </ul>
-              </div>
-
-              <div className="viking-col">
+            {/* Column 3: Policy Links */}
+            <div className="viking-col">
                 <h4>CUSTOMER SERVICE</h4>
                 <ul>
                   <li><Link href="/pages/general-conditions">General Conditions Of Sale And Use</Link></li>
@@ -71,43 +76,38 @@ export default function Footer() {
                 </ul>
               </div>
 
-              <div className="viking-col">
-                <h4>CONTACT US</h4>
+            {/* Column 4: Contact Details */}
+            <div className="viking-col">
+              <h4>CONTACT US</h4>
 
-                <div className="viking-contact">
-                  <div className="image">
-                    <Image src={IMG.adress} alt="" width={18} height={18} />
-                  </div>
-                  <Link href="/">
-                    <span>160 Madison Ave Freeport 11520 New York</span>
-                  </Link>
+              <div className="viking-contact">
+                <div className="image">
+                  <Image src={IMG.adress} alt="address" width={18} height={18} />
                 </div>
-
-                <div className="viking-contact">
-                  <div className="image">
-                    <Image src={IMG.tel} alt="" width={18} height={18} />
-                  </div>
-                  <Link href="/">
-                    <span>+1 (516) 574-1871</span>
-                  </Link>
-                </div>
-
-                <div className="viking-contact">
-                  <div className="image">
-                    <Image src={IMG.mail} alt="" width={18} height={18} />
-                  </div>
-                  <Link href="/">
-                    <span>vikingarmoryblades@gmail.com</span>
-                  </Link>
-                </div>
+                <span>160 Madison Ave Freeport 11520 New York</span>
               </div>
 
-            </div>
-          </div>
-        </footer>
+              <div className="viking-contact">
+                <div className="image">
+                  <Image src={IMG.tel} alt="phone" width={18} height={18} />
+                </div>
+                <a href="tel:+15165741871"><span>+1 (516) 574-1871</span></a>
+              </div>
 
-        {/* Bottom Bar */}
-        <div className="viking-bottom">
+              <div className="viking-contact">
+                <div className="image">
+                  <Image src={IMG.mail} alt="email" width={18} height={18} />
+                </div>
+                <a href="mailto:vikingarmoryblades@gmail.com"><span>vikingarmoryblades@gmail.com</span></a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </footer>
+
+      {/* Bottom Bar */}
+       <div className="viking-bottom">
           <p>
             Copyright © <b>Vikingarmoryblades</b> All Rights Reserved.
           </p>
@@ -128,7 +128,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </>
     </div>
   );
 }
