@@ -158,7 +158,7 @@ export default function CartPage() {
           </div>
           <p className="tax-note">Tax included and shipping calculated at checkout. Forge your legacy now.</p>
           
-          <button className="checkout-btn">Proceed To Checkout</button>
+          <button className="checkout-btn"><Link href='/checkout'>Proceed To Checkout</Link></button>
           <Link href="/"><button className="continue-btn">Continue Shopping</button></Link>
         </aside>
       </div>

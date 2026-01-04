@@ -248,3 +248,17 @@ h5,
 .vrr-body-text::first-line {
     vertical-align: top;
 }
+/* src/app/globals.css */
+
+/* Add this at the very top */
+/* @import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'); */
+
+/* Alternatively, if you have the package installed locally: */
+@import "leaflet/dist/leaflet.css";
+
+/* Ensure the map container has a defined height */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
