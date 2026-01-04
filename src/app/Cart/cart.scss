@@ -179,6 +179,7 @@ $text-muted: #777;
     .order-summary {
         width: 100%;
         position: sticky;
+        background-color: #fff;
         top: 100px; // Adjust based on your header height
 
         @media (min-width: 1024px) {
