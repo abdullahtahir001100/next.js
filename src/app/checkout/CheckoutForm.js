@@ -195,56 +195,74 @@ export default function CheckoutForm({ cartItems, isCodFallback }) {
   };
 
   // --- SUBMIT ---
-  const handleSubmit = async (e) => {
+// Inside CheckoutForm.js
+
+const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // 1. JS VALIDATION CHECK
     if (!validateForm()) return;
 
     setLoading(true);
 
-    if (paymentMethod === 'stripe' && !isCodFallback) {
-      const { stripe, elements } = stripeRef.current || {};
-      if (!stripe || !elements) { setLoading(false); return; }
-
-      const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: `${window.location.origin}/checkout/success`,
-          payment_method_data: {
-            billing_details: {
-              name: `${form.firstName} ${form.lastName}`,
-              email: form.email,
-              phone: form.phone,
-              address: { line1: form.address1, city: form.city, state: form.state, postal_code: form.zip, country: form.country }
-            }
-          }
-        },
-      });
-
-      if (error) {
-        setPopup({ show: true, type: "error", title: "Payment Failed", msg: error.message });
-      }
-    } else {
-      // COD Handling
-      try {
-        const res = await axios.post("/api/checkout", {
-          items: cartItems,
-          customer: { email: form.email, phone: form.phone, firstName: form.firstName, lastName: form.lastName },
-          address: form,
-          paymentMethod: 'cod'
+    try {
+        // 1. SAVE ORDER TO MONGODB FIRST (Regardless of payment method)
+        // We call the API with full details to create the "Pending" order in DB
+        const saveOrderRes = await axios.post("/api/checkout", {
+            items: cartItems,
+            customer: { email: form.email, phone: form.phone, firstName: form.firstName, lastName: form.lastName },
+            address: form,
+            paymentMethod: paymentMethod // 'stripe' or 'cod'
         });
-        if (res.data.success) {
-           setPopup({ show: true, type: "success", title: "Order Confirmed", msg: `Order #${res.data.orderId} placed!` });
-           localStorage.removeItem("cart");
-           setTimeout(() => window.location.href = "/", 3000);
+
+        if (!saveOrderRes.data.success) {
+             throw new Error("Failed to save order details");
         }
-      } catch (err) {
-        setPopup({ show: true, type: "error", title: "Error", msg: "Could not place order." });
-      }
+
+        // 2. HANDLE STRIPE PAYMENT
+        if (paymentMethod === 'stripe') {
+            const { stripe, elements } = stripeRef.current || {};
+            if (!stripe || !elements) { setLoading(false); return; }
+
+            // Confirm payment with Stripe
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    // Pass the Order ID so we can track it on the success page if needed
+                    return_url: `${window.location.origin}/checkout/success?orderId=${saveOrderRes.data.orderId}`,
+                    payment_method_data: {
+                        billing_details: {
+                            name: `${form.firstName} ${form.lastName}`,
+                            email: form.email,
+                            phone: form.phone,
+                            address: { 
+                                line1: form.address1, 
+                                city: form.city, 
+                                state: form.state, 
+                                postal_code: form.zip, 
+                                country: form.country 
+                            }
+                        }
+                    }
+                },
+            });
+
+            if (error) {
+                setPopup({ show: true, type: "error", title: "Payment Failed", msg: error.message });
+            }
+        } 
+        // 3. HANDLE COD
+        else {
+             setPopup({ show: true, type: "success", title: "Order Confirmed", msg: `Order #${saveOrderRes.data.orderId} placed!` });
+             localStorage.removeItem("cart");
+             setTimeout(() => window.location.href = "/", 3000);
+        }
+
+    } catch (err) {
+        console.error(err);
+        setPopup({ show: true, type: "error", title: "Error", msg: "Could not process order. Please try again." });
+    } finally {
+        setLoading(false);
     }
-    setLoading(false);
-  };
+};
 
   // Helper for Error styling
   const getErrorStyle = (field) => {
