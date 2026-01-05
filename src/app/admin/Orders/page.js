@@ -100,8 +100,10 @@ export default function AdminOrders() {
   }, [orders, search, statusFilter]);
 
   return (
+   <>
+    <Bar />
     <div className="admin-simple-container">
-      <Bar />
+      
       {/* DELETE CONFIRMATION POPUP */}
       {deleteTarget && (
         <div className="popup-overlay">
@@ -235,5 +237,6 @@ export default function AdminOrders() {
         </div>
       </div>
     </div>
+   </>
   );
 }
