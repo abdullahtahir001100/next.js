@@ -6,6 +6,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { X, Minus, Plus, ShoppingBag, Info, PlusCircle, AlertTriangle } from "lucide-react";
 import { gsap } from "gsap";
+import VikingLoader from "../components/VikingLoader"; // Imported your loader
 import "./cart.scss";
 
 // Noticeable Popup (Standardized for your site)
@@ -90,7 +91,10 @@ export default function CartPage() {
 
   const subtotal = items.reduce((acc, i) => acc + (parseFloat(i.salePrice || i.price) * i.quantity), 0);
 
-  if (loading) return null; // Use your existing FullPageLoader here
+  // --- LOADER IMPLEMENTATION ---
+  if (loading) {
+    return <VikingLoader />;
+  }
 
   // FULL SCREEN EMPTY STATE
   if (items.length === 0) {

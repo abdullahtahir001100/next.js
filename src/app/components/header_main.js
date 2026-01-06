@@ -45,7 +45,7 @@ const MENU_DATA = [
     { label: 'Shields & Armor', href: '/Products/Shields%20%26%20Armor' },
     { label: 'Display & Accessories', href: '/Products/Display%20%26%20Accessories' },
     { label: 'About Us', href: '/pages/about' },
-    { label: 'Contact', href: '/pages/contact' },
+    { label: 'Contact', href: '/ContactUs' },
 ];
 
 function useDebounce(value, delay) {

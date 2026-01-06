@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-
+import VikingLoader from "../components/VikingLoader"; // Imported your loader
 export default function Contact() {
   const [settings, setSettings] = useState(null);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', comment: '' });
@@ -67,7 +67,7 @@ export default function Contact() {
     }
   };
 
-  if (!settings) return <div className="loading-state">Loading Viking Armory...</div>;
+  if (!settings) return <div className="loading-state"><VikingLoader /></div>;
 
   return (
     <main>
