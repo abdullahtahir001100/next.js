@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const OrderSchema = new mongoose.Schema({
   customer: {
     email: { type: String, required: true },
-    phone: { type: String, required: true },
+    phone: { type: String },
     firstName: String,
     lastName: String,
   },
@@ -30,14 +30,15 @@ const OrderSchema = new mongoose.Schema({
     currency: { type: String, default: 'usd' }
   },
   payment: {
-    method: { type: String, enum: ['stripe', 'cod'], required: true },
+    method: { type: String, enum: ['stripe', 'cod', 'card'], required: true },
     status: { type: String, default: 'pending' }, // pending, paid, failed
-    intentId: String,
+    intentId: String, // Critical for Webhook linking
+    transactionId: String,
   },
   status: { 
     type: String, 
-    enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'], 
-    default: 'Processing' 
+    enum: ['Pending Payment', 'Payment Failed', 'Processing', 'Requested', 'Shipped', 'Delivered', 'Cancelled'], 
+    default: 'Pending Payment' // Default state until Webhook fires
   }
 }, { timestamps: true });
 

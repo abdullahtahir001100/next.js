@@ -1,24 +1,17 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Order from "@/lib/models/Order";
-import Stripe from "stripe";
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req) {
   try {
-    const stripeKey = process.env.STRIPE_SECRET_KEY;
-    if (!stripeKey) {
-      return NextResponse.json({ error: "Stripe configuration missing" }, { status: 500 });
-    }
-    const stripe = new Stripe(stripeKey);
-
     await connectDB();
     
     const body = await req.json();
-    const { items, customer, address, paymentMethod } = body;
+    const { items, customer, address, paymentMethod, paymentIntentId } = body;
 
-    // 1. Calculate Total (Always required)
+    // 1. Calculate Total
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "No items in cart" }, { status: 400 });
     }
@@ -40,34 +33,13 @@ export async function POST(req) {
       };
     });
 
-    const total = subtotal; // Add shipping logic here if needed
-    const amountInCents = Math.round(total * 100);
+    const total = subtotal; 
 
-    // ============================================================
-    // MODE A: INITIALIZATION (Page Load)
-    // We only want the Stripe Key. We don't have an address yet.
-    // ============================================================
-    if (!address || !customer?.firstName) {
-        // Create a PaymentIntent for the cart amount
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: amountInCents,
-            currency: "usd",
-            automatic_payment_methods: { enabled: true },
-        });
+    // 2. Create Order Object
+    // Initial Status depends on method. If Stripe, it's "Pending Payment" until Webhook fires.
+    const initialStatus = paymentMethod === 'stripe' ? 'Pending Payment' : 'Processing';
+    const paymentStatus = paymentMethod === 'stripe' ? 'pending' : 'pending'; // COD is also pending initially
 
-        // Return ONLY the key. Do not save an Order to DB yet.
-        return NextResponse.json({ 
-            clientSecret: paymentIntent.client_secret, 
-            total 
-        });
-    }
-
-    // ============================================================
-    // MODE B: FULL ORDER (User Clicked Submit)
-    // Now we validate everything and save to MongoDB
-    // ============================================================
-    
-    // 1. Create Order Object
     const orderData = {
       customer: {
         email: customer.email,
@@ -92,18 +64,18 @@ export async function POST(req) {
       },
       payment: {
         method: paymentMethod || 'card',
-        status: 'pending',
+        status: paymentStatus,
+        intentId: paymentIntentId, // YEH BAHUT ZAROORI HAI WEBHOOK KE LIYE
       },
-      status: 'Processing',
+      status: initialStatus,
     };
 
-    // 2. Save to Database
+    // 3. Save to Database
     const newOrder = await Order.create(orderData);
 
-    // 3. Response
     return NextResponse.json({ 
         success: true, 
-        orderId: newOrder._id, 
+        orderId: newOrder._id,
         method: paymentMethod 
     });
 

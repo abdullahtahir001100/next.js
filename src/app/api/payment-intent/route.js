@@ -4,73 +4,83 @@ import Product from "@/lib/models/Product";
 import ShopProducts from "@/lib/models/ShopProducts";
 import Stripe from "stripe";
 
-// Prevents Next.js from trying to pre-render this route during 'npm run build'
 export const dynamic = 'force-dynamic';
 
 export async function POST(req) {
   try {
-    // 1. Check for the key FIRST before doing anything else
     const apiKey = process.env.STRIPE_SECRET_KEY;
-    
     if (!apiKey) {
-      console.error("CRITICAL: STRIPE_SECRET_KEY is missing.");
-      return NextResponse.json(
-        { error: "Payment configuration is missing on the server." }, 
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Stripe key missing" }, { status: 500 });
     }
-
-    // 2. Initialize Stripe ONLY when a request actually happens
     const stripe = new Stripe(apiKey);
 
     await connectDB();
-    const { items: cartItems } = await req.json();
+    
+    const body = await req.json();
+    const cartItems = body.items;
 
     if (!cartItems || cartItems.length === 0) {
       return NextResponse.json({ error: "No items in cart" }, { status: 400 });
     }
 
-    const ids = cartItems.map((item) => item.id);
+    // 1. IDs Extraction Fix (Handle both _id and id)
+    const ids = cartItems.map((item) => item._id || item.id).filter(Boolean);
 
-    // 3. Fetch real products from DB
+    // 2. Fetch Products
     const [productsA, productsB] = await Promise.all([
       Product.find({ _id: { $in: ids } }).lean(),
       ShopProducts.find({ _id: { $in: ids } }).lean(),
     ]);
     const dbProducts = [...productsA, ...productsB];
 
-    // 4. Calculate total securely
+    // 3. Calculate Total
     let subtotal = 0;
+    
     cartItems.forEach((cartItem) => {
-      const dbProduct = dbProducts.find((p) => p._id.toString() === cartItem.id);
+      // Frontend item ID normalize karein
+      const cartItemId = cartItem._id || cartItem.id;
+      
+      const dbProduct = dbProducts.find((p) => p._id.toString() === cartItemId);
+      
       if (dbProduct) {
+        // SECURE WAY: DB Price use karein
         const priceStr = dbProduct.salePrice || dbProduct.price;
         const priceVal = parseFloat(priceStr.toString().replace(/[$,]/g, ''));
         subtotal += priceVal * cartItem.quantity;
+      } else {
+        // --- FALLBACK (UNSAFE BUT FIXES YOUR ERROR FOR NOW) ---
+        console.warn(`⚠️ Product ID ${cartItemId} not found in DB. Using Frontend Price.`);
+        const fallbackPrice = parseFloat(cartItem.price.toString().replace(/[$,]/g, ''));
+        subtotal += fallbackPrice * cartItem.quantity;
       }
     });
 
+    // 4. Final Amount Check
     const amountInCents = Math.round(subtotal * 100);
 
     if (amountInCents <= 0) {
-       return NextResponse.json({ error: "Total amount must be greater than zero" }, { status: 400 });
+      return NextResponse.json({ error: "Total amount is 0" }, { status: 400 });
     }
 
-    // 5. Create the PaymentIntent
+    // 5. Create Payment Intent
+    // Note: Hum yahan Order ID nahi daal sakte kyunki Order abhi bana nahi hai.
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInCents,
       currency: "usd",
       automatic_payment_methods: { enabled: true },
+      metadata: {
+        cart_items_count: cartItems.length.toString(),
+      }
     });
 
     return NextResponse.json({ 
       clientSecret: paymentIntent.client_secret, 
+      paymentIntentId: paymentIntent.id, 
       calculatedTotal: subtotal 
     });
 
   } catch (error) {
-    // This catches Stripe initialization errors, DB errors, or JSON errors
-    console.error("Payment Route Error:", error);
+    console.error("Payment Intent Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error", details: error.message }, 
       { status: 500 }

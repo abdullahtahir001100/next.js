@@ -20,7 +20,7 @@ export const metadata = {
   creator: 'Viking Armory',
 
   icons: {
-    icon: '/favicon.ico', 
+    icon: '/smz enterprises logo.png', 
   },
 
   openGraph: {
@@ -30,7 +30,7 @@ export const metadata = {
     siteName: 'Viking Armory Blades',
     images: [
       {
-        url: 'https://vikingarmoryblades.com/cdn/shop/files/Viking_Armory_Blades_Logo.webp?v=1755453192&width=300', 
+        url: '/smz enterprises logo.png', 
         width: 800,
         height: 600,
         alt: 'Viking Armory Logo',
@@ -44,7 +44,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: "Viking Armory Blades",
     description: "Premium handcrafted swords and outdoor gear.",
-    images: ['https://vikingarmoryblades.com/cdn/shop/files/Viking_Armory_Blades_Logo.webp?v=1755453192&width=300'],
+    images: ['/smz enterprises logo.png'],
   },
 };
 

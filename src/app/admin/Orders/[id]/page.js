@@ -9,7 +9,7 @@ import Select from "react-select";
 import { 
   ChevronLeft, Calendar, User, Mail, Phone, MapPin, 
   CreditCard, Truck, AlertTriangle, Trash2, CheckCircle, 
-  X, RefreshCcw, SearchX, ShieldCheck
+  X, RefreshCcw, SearchX, ShieldCheck, MessageCircle, Lock
 } from "lucide-react";
 import "./order-details.scss";
 
@@ -26,6 +26,7 @@ const Popup = ({ show, type, title, message, onConfirm, onCancel, progress }) =>
           {type === 'error' && <X size={40} />}
           {type === 'confirm' && <AlertTriangle size={40} />}
           {type === 'loading' && <RefreshCcw size={40} className="spin" />}
+          {type === 'locked' && <Lock size={40} />}
         </div>
 
         {/* CONTENT */}
@@ -49,7 +50,7 @@ const Popup = ({ show, type, title, message, onConfirm, onCancel, progress }) =>
               <button className="btn-confirm-delete" onClick={onConfirm}>Yes, Delete</button>
             </>
           )}
-          {(type === 'success' || type === 'error') && (
+          {(type === 'success' || type === 'error' || type === 'locked') && (
             <button className="btn-close" onClick={onCancel}>Close</button>
           )}
         </div>
@@ -82,7 +83,7 @@ export default function OrderDetails({ params }) {
   // Popup State
   const [popup, setPopup] = useState({ 
     show: false, 
-    type: '', // success, error, confirm, loading
+    type: '', // success, error, confirm, loading, locked
     title: '', 
     message: '',
     progress: 0 
@@ -96,8 +97,12 @@ export default function OrderDetails({ params }) {
         const { data } = await axios.get(`/api/AllOrders/${orderId}`);
         if (data.success) {
           setOrder(data.order);
+          
+          // Set initial dropdown value only if status is valid for manual update
           const currentOpt = STATUS_OPTIONS.find(opt => opt.value === data.order.status);
-          setSelectedStatus(currentOpt);
+          if (currentOpt) {
+              setSelectedStatus(currentOpt);
+          }
         } else {
           setError(true);
         }
@@ -120,14 +125,22 @@ export default function OrderDetails({ params }) {
         clearInterval(interval);
         callback();
       }
-    }, 150); // Speed of progress bar
+    }, 150);
   };
 
   // --- HANDLERS ---
   const handleUpdateStatus = () => {
     if (!selectedStatus) return;
 
-    // 1. Show Loading Popup
+    // SECURITY CHECK: If Pending Payment, block action
+    if (order.status === 'Pending Payment' || order.status === 'Payment Failed') {
+        setPopup({ 
+            show: true, type: 'locked', title: 'Action Locked', 
+            message: 'You cannot update the status manually while payment is pending or failed.' 
+        });
+        return;
+    }
+
     setPopup({ 
       show: true, type: 'loading', title: 'Updating Order...', 
       message: 'Please wait while we update the order status.', progress: 10 
@@ -138,7 +151,6 @@ export default function OrderDetails({ params }) {
         await axios.put(`/api/AllOrders/${orderId}`, { status: selectedStatus.value });
         setOrder(prev => ({ ...prev, status: selectedStatus.value }));
         
-        // 2. Show Success Popup
         setPopup({ 
           show: true, type: 'success', title: 'Success!', 
           message: `Order status has been updated to ${selectedStatus.label}.` 
@@ -161,7 +173,6 @@ export default function OrderDetails({ params }) {
   };
 
   const executeDelete = () => {
-    // 1. Show Loading
     setPopup({ 
       show: true, type: 'loading', title: 'Deleting...', 
       message: 'Removing order from database.', progress: 10 
@@ -184,6 +195,14 @@ export default function OrderDetails({ params }) {
     setPopup({ ...popup, show: false });
   };
 
+  // --- HELPERS FOR CONTACT LINKS ---
+  const getWhatsAppLink = (phone) => {
+      if (!phone) return '#';
+      // Remove all non-numeric characters for the link
+      const cleanNumber = phone.replace(/[^0-9]/g, ''); 
+      return `https://wa.me/${cleanNumber}`;
+  };
+
   // --- RENDER STATES ---
   if (loading) return <div className="state-screen"><div className="spinner"></div><p>Loading Order...</p></div>;
   
@@ -192,13 +211,18 @@ export default function OrderDetails({ params }) {
        <div className="icon-box"><SearchX size={48} /></div>
        <h2>Order Not Found</h2>
        <p>The order <span>#{orderId}</span> does not exist.</p>
-       <Link href="/admin/  Orders" className="btn-primary"><ChevronLeft size={16}/> Back to Orders</Link>
+       <Link href="/admin/Orders" className="btn-primary"><ChevronLeft size={16}/> Back to Orders</Link>
     </div>
   );
 
+  // Check if locked
+  const isActionLocked = order.status === 'Pending Payment' || order.status === 'Payment Failed';
+
+  // Format Status for Badge CSS class
+  const statusClass = order.status.toLowerCase().replace(/\s+/g, '-');
+
   return (
     <div className="order-details-page">
-      {/* POPUP COMPONENT INJECTION */}
       <Popup 
         show={popup.show} 
         type={popup.type} 
@@ -219,7 +243,7 @@ export default function OrderDetails({ params }) {
       <header className="page-header">
         <div className="left">
           <h1>Order Details</h1>
-          <span className={`status-badge ${order.status.toLowerCase()}`}>{order.status}</span>
+          <span className={`status-badge ${statusClass}`}>{order.status}</span>
         </div>
         <div className="right">
           <p>Order ID: <span>{order._id}</span></p>
@@ -239,7 +263,23 @@ export default function OrderDetails({ params }) {
                    <div className="dot"></div>
                    <div className="info"><h4>Order Placed</h4><p>{new Date(order.createdAt).toLocaleString()}</p></div>
                 </div>
-                <div className={`step ${order.status !== 'Pending' ? 'completed' : ''}`}>
+
+                {/* SHOW IF PENDING PAYMENT */}
+                {order.status === 'Pending Payment' && (
+                     <div className="step warning">
+                        <div className="dot"></div>
+                        <div className="info"><h4>Pending Payment</h4><p>Customer has not paid yet.</p></div>
+                     </div>
+                )}
+                {/* SHOW IF FAILED */}
+                {order.status === 'Payment Failed' && (
+                     <div className="step error">
+                        <div className="dot"></div>
+                        <div className="info"><h4>Payment Failed</h4><p>Transaction unsuccessful.</p></div>
+                     </div>
+                )}
+
+                <div className={`step ${['Processing', 'Shipped', 'Delivered'].includes(order.status) ? 'completed' : ''}`}>
                    <div className="dot"></div>
                    <div className="info"><h4>Processing</h4><p>Order is being prepared.</p></div>
                 </div>
@@ -283,6 +323,16 @@ export default function OrderDetails({ params }) {
                     {order.payment.method.toUpperCase()}
                   </span>
                </div>
+               {/* PAYMENT STATUS EXTRA INFO */}
+               <div style={{ marginTop: '10px', fontSize: '13px', display:'flex', justifyContent:'space-between' }}>
+                    <span style={{color: '#6b7280'}}>Payment Status:</span>
+                    <span style={{
+                        fontWeight: 'bold', 
+                        color: order.payment.status === 'paid' ? '#10b981' : '#f59e0b'
+                    }}>
+                        {order.payment.status ? order.payment.status.toUpperCase() : 'PENDING'}
+                    </span>
+               </div>
             </div>
           </section>
         </div>
@@ -290,19 +340,84 @@ export default function OrderDetails({ params }) {
         <div className="right-col">
           <section className="card customer-card">
              <h3><User size={18}/> Customer Info</h3>
-             <div className="info-group"><div className="icon"><User size={16}/></div><div><label>Name</label><p>{order.customer?.firstName || 'Guest'} {order.customer?.lastName || ''}</p></div></div>
-             <div className="info-group"><div className="icon"><Mail size={16}/></div><div><label>Email</label><p>{order.customer?.email || 'N/A'}</p></div></div>
-             <div className="info-group"><div className="icon"><Phone size={16}/></div><div><label>Phone</label><p>{order.customer?.phone || 'N/A'}</p></div></div>
-             <div className="info-group"><div className="icon"><MapPin size={16}/></div><div><label>Address</label><p>{order.shippingAddress?.address1}, {order.shippingAddress?.city}</p></div></div>
-             <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(order.shippingAddress?.address1)}`} target="_blank" className="map-link">View on Google Maps</a>
+             
+             <div className="info-group">
+                 <div className="icon"><User size={16}/></div>
+                 <div>
+                     <label>Name</label>
+                     <p>{order.customer?.firstName || 'Guest'} {order.customer?.lastName || ''}</p>
+                 </div>
+             </div>
+             
+             {/* CLICKABLE EMAIL */}
+             <div className="info-group">
+                 <div className="icon"><Mail size={16}/></div>
+                 <div>
+                     <label>Email</label>
+                     <a href={`mailto:${order.customer?.email}`} className="contact-link">
+                        {order.customer?.email || 'N/A'}
+                     </a>
+                 </div>
+             </div>
+             
+             {/* CLICKABLE PHONE & WHATSAPP */}
+             <div className="info-group">
+                 <div className="icon"><Phone size={16}/></div>
+                 <div>
+                     <label>Phone</label>
+                     <div style={{display:'flex', gap:'10px', alignItems:'center'}}>
+                        <a href={`tel:${order.customer?.phone}`} className="contact-link">
+                            {order.customer?.phone || 'N/A'}
+                        </a>
+                        {order.customer?.phone && (
+                            <a 
+                                href={getWhatsAppLink(order.customer?.phone)} 
+                                target="_blank" 
+                                className="whatsapp-btn"
+                                title="Chat on WhatsApp"
+                            >
+                                <MessageCircle size={14} /> WhatsApp
+                            </a>
+                        )}
+                     </div>
+                 </div>
+             </div>
+             
+             <div className="info-group">
+                 <div className="icon"><MapPin size={16}/></div>
+                 <div>
+                     <label>Address</label>
+                     <p>{order.shippingAddress?.address1}, {order.shippingAddress?.city}</p>
+                 </div>
+             </div>
+             
+             <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(order.shippingAddress?.address1 + " " + order.shippingAddress?.city)}`} target="_blank" className="map-link">View on Google Maps</a>
           </section>
 
-          <section className="card action-card">
-             <h3><CheckCircle size={18}/> Update Status</h3>
-             <div className="select-container">
-                <Select options={STATUS_OPTIONS} value={selectedStatus} onChange={setSelectedStatus} classNamePrefix="react-select" />
-             </div>
-             <button className="btn-update" onClick={handleUpdateStatus}>Apply New Status</button>
+          <section className={`card action-card ${isActionLocked ? 'locked' : ''}`}>
+             <h3>
+                {isActionLocked ? <Lock size={18}/> : <CheckCircle size={18}/>} 
+                Update Status
+             </h3>
+             
+             {isActionLocked ? (
+                 <div className="locked-msg">
+                     <AlertTriangle size={16} />
+                     <p>Status updates are disabled because payment is <strong>{order.status}</strong>.</p>
+                 </div>
+             ) : (
+                 <>
+                    <div className="select-container">
+                        <Select 
+                            options={STATUS_OPTIONS} 
+                            value={selectedStatus} 
+                            onChange={setSelectedStatus} 
+                            classNamePrefix="react-select" 
+                        />
+                    </div>
+                    <button className="btn-update" onClick={handleUpdateStatus}>Apply New Status</button>
+                 </>
+             )}
           </section>
 
           <section className="card danger-card">

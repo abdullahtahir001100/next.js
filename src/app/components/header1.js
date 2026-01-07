@@ -6,7 +6,7 @@ import gsap from 'gsap';
 
 // --- CONSTANTS ---
 const FALLBACK_IMG = "https://placehold.co/100x100?text=No+Image";
-const LOGO_URL = "https://vikingarmoryblades.com/cdn/shop/files/Viking_Armory_Blades_Logo.webp?v=1755453192&width=300";
+const LOGO_URL = "/smz enterprises logo.png";
 
 const ICONS = {
     search: '/search.png', 
