@@ -1,4 +1,4 @@
-"use client"; // This directive allows us to use hooks like usePathname
+"use client"; 
 
 import { usePathname } from "next/navigation";
 import Header from "./components/header_main";
@@ -9,16 +9,15 @@ import Footer from "./components/footer";
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
   
-  // Check if the current URL starts with "/admin"
-  // You can add other paths here if needed
+  // Admin route check
   const isAdminRoute = pathname?.startsWith("/admin");
 
-  // If we are in the admin panel, ONLY render the children (no headers/footers)
+  // Admin route par Headers/Footers hide karo
   if (isAdminRoute) {
     return <>{children}</>;
   }
 
-  // Otherwise, render the full public website layout
+  // Baaki puri website par Headers dikhao
   return (
     <>
       <Animate_slider />

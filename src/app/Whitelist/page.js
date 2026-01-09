@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '@/utils/smartApi';
 import Link from 'next/link'; // [Step 1] Import Link
 import { MdOutlineEmail } from "react-icons/md";
 

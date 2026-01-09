@@ -1,5 +1,8 @@
 import { SearchProvider } from "./components/search";
 import ClientLayout from "./ClientLayout"; 
+// Naya import add kiya hai
+import { GlobalCacheProvider } from "@/context/GlobalCacheContext"; 
+
 import "./globals.css";
 import "./styles/dashboards.scss";
 import './styles/responsive.scss';
@@ -9,20 +12,17 @@ export const metadata = {
   metadataBase: new URL('https://next-js-alpha-woad.vercel.app'), 
 
   title: {
-    // Is title mein main brand aur variations dono hain
     default: "SMZ Enterprises | SMZ Store | Premium Blades & Swords",
     template: "%s | SMZ Enterprises"
   },
   
   description: "Official SMZ Enterprises (SMZ Store). We provide premium handcrafted katanas, knives, and axes. Also known as SM Enterprise or SMZ Blades. Quality weaponry for collectors.",
   
-  // Is list mein wo sab variations hain jo aapne mangi hain
   keywords: [
     "SMZ Enterprises", "SMZ Enterprise", "Enterprises SMZ", "SM Enterprises", 
     "SMZ Store", "SMZ Shop", "SMZ.com", "SMZ.pk", "SMZ.store", "SMZ.in", "SMZ.io",
     "SM Enterprise", "S.M.Z Enterprises", "smzenterprises", "smz blades",
     "swords", "katanas", "viking armory",
-    // Misspellings (Ghalt spelling)
     "smz enterprizes", "smz enterprais", "sm enterpise", "smz sotre"
   ],
   
@@ -30,7 +30,6 @@ export const metadata = {
   creator: 'SMZ Enterprises',
 
   icons: {
-    // Yaad se file ka naam public folder mein 'favicon.png' rakhein
     icon: '/favicon.ico', 
     shortcut: '/favicon.ico',
     apple: '/favicon.ico',
@@ -71,16 +70,21 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Isse search engine ko mazeed help milti hai variations samajhne mein */}
         <meta name="application-name" content="SMZ Enterprises" />
         <meta name="apple-mobile-web-app-title" content="SMZ Store" />
       </head>
       <body>
-        <SearchProvider>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
-        </SearchProvider>
+        {/* Step 3: Yahan Cache Provider lagaya hai */}
+        <GlobalCacheProvider>
+          <SearchProvider>
+            
+            {/* ClientLayout ke andar hum gaye hi nahi, bas usko wrap kar diya */}
+            <ClientLayout>
+              {children}
+            </ClientLayout>
+            
+          </SearchProvider>
+        </GlobalCacheProvider>
       </body>
     </html>
   );
