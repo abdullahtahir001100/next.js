@@ -170,7 +170,7 @@ export default function ArmoryCMS() {
                       </div>
                       <div className="field">
                         <label>Redirect Link</label>
-                        <input value={activeItem.link} onChange={e => setActiveItem({...activeItem, link: e.target.value})} placeholder="/collections/swords" />
+                        <input value={activeItem.link} onChange={e => setActiveItem({...activeItem, link: e.target.value})} placeholder="collection/swords" />
                       </div>
                       
                       {/* --- TABS & IMAGE INPUT --- */}

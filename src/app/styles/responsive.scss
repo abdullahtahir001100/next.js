@@ -32,6 +32,9 @@
 
   /* Tablets and Mobile Landscape */
   @media (max-width: 768px) {
+    .product-page-wrapper .gallery-section,.info-section{
+        width: 100% !important;
+    }
     .review-container{
         flex-direction: column;
         .review-form,.reviews{
@@ -176,6 +179,9 @@
           gap: 20px;
           text-align: center;
       }
+      .order-summary,.cart-list{
+        position: static !important;
+      }
   }
 
   @media (max-width: 600px) {
@@ -189,6 +195,30 @@
   /* Small Mobile Devices */
 
   @media (max-width: 500px) {
+   .linebar .swiper-pagination{
+        margin-top: 0 !important;
+        
+    }
+    .vsd-container{
+        padding: 0 !important;
+    }
+    .vsd-content{
+        margin: 0 !important;
+    }
+    .vsd-contact-item{
+        align-items: flex-start !important;
+    }
+    .swiper-pagination span{
+            width: 10px !important;
+            height: 10px !important;
+        }
+        .about{ 
+            padding-left: 0;
+            padding-right: 0;
+            .flex{
+            flex-direction: column-reverse;
+        }
+    }
     .product-title_main{
         font-size: 10px;
     }
@@ -279,6 +309,12 @@
           h4 {
               font-size: 12px;
           }
+      }
+      .overflow{
+        overflow: scroll;
+        .tab-nav{
+            width: 500px !important;
+        }
       }
   }
 

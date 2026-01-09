@@ -261,11 +261,13 @@ const ProductPageClient = ({ product }) => {
           </div>
 
           <div className="tabs-section">
-            <div className="tab-nav">
+           <div className="overflow">
+             <div className="tab-nav">
               <button onClick={() => setActiveTab('description')} className={activeTab === 'description' ? 'tab-trigger active' : 'tab-trigger'}>The Forge Story</button>
               <button onClick={() => setActiveTab('shipping')} className={activeTab === 'shipping' ? 'tab-trigger active' : 'tab-trigger'}>Shipping & Returns</button>
               <button onClick={() => setActiveTab('reviews')} className={activeTab === 'reviews' ? 'tab-trigger active' : 'tab-trigger'}>Warrior Reviews ({reviews.length})</button>
             </div>
+           </div>
 
             <div className="tab-content">
               {activeTab === 'description' && (
