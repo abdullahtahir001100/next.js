@@ -2,12 +2,39 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // Added for programmatic navigation
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { X, Minus, Plus, ShoppingBag, Info, PlusCircle, AlertTriangle } from "lucide-react";
 import { gsap } from "gsap";
-import VikingLoader from "../components/VikingLoader"; // Imported your loader
+import VikingLoader from "../components/VikingLoader";
 import "./cart.scss";
+
+// --- 1. THE COLORFUL ROTATING BALL LOADER ---
+const ColorfulSpinner = () => (
+  <>
+    <style jsx>{`
+      .colorful-spinner {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        /* Four colorful sides */
+        border-top-color: #ff4757;   /* Red */
+        border-right-color: #2ed573; /* Green */
+        border-bottom-color: #1e90ff;/* Blue */
+        border-left-color: #ffa502;  /* Yellow */
+        animation: spin 1s linear infinite;
+        margin: 0 auto; /* Center it */
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `}</style>
+    <div className="colorful-spinner"></div>
+  </>
+);
 
 // Noticeable Popup (Standardized for your site)
 const NoticeablePopup = ({ t, type, message }) => (
@@ -27,7 +54,12 @@ export default function CartPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(null);
+  
+  // --- 2. NEW STATE FOR CHECKOUT LOADING ---
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+  
   const listRef = useRef(null);
+  const router = useRouter(); // Initialize router
 
   useEffect(() => {
     fetchCart();
@@ -87,6 +119,15 @@ export default function CartPage() {
         toast.custom((t) => <NoticeablePopup t={t} type="success" message="Removed from collection." />);
       }
     });
+  };
+
+  // --- 3. HANDLE CHECKOUT CLICK ---
+  const handleProceedToCheckout = () => {
+    setIsCheckoutLoading(true); // Start loading
+    
+    // Simulate a small delay or just push directly. 
+    // The loading state will stay until the page actually changes.
+    router.push('/checkout');
   };
 
   const subtotal = items.reduce((acc, i) => acc + (parseFloat(i.salePrice || i.price) * i.quantity), 0);
@@ -162,7 +203,25 @@ export default function CartPage() {
           </div>
           <p className="tax-note">Tax included and shipping calculated at checkout. Forge your legacy now.</p>
           
-          <button className="checkout-btn"><Link href='/checkout'>Proceed To Checkout</Link></button>
+          {/* --- 4. UPDATED CHECKOUT BUTTON --- */}
+          <button 
+            className="checkout-btn" 
+            onClick={handleProceedToCheckout}
+            disabled={isCheckoutLoading} // Disable click while loading
+            style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center',
+              minHeight: '50px' // Ensure button doesn't shrink when text changes to spinner
+            }}
+          >
+            {isCheckoutLoading ? (
+              <ColorfulSpinner /> 
+            ) : (
+              "Proceed To Checkout"
+            )}
+          </button>
+          
           <Link href="/"><button className="continue-btn">Continue Shopping</button></Link>
         </aside>
       </div>

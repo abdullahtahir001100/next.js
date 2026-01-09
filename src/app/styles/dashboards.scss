@@ -2961,3 +2961,270 @@ body {
   from { opacity: 0.5; }
   to { opacity: 1; }
 }
+.whitelist-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+
+    .breadcrumbs {
+        font-size: 13px;
+        color: #999;
+        margin-bottom: 20px;
+
+        span {
+            margin: 0 8px;
+        }
+    }
+
+    .title {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .view-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 25px;
+        margin-bottom: 35px;
+
+        .view-as {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+
+            button {
+                background: none;
+                border: 1px solid #e0e0e0;
+                padding: 6px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                transition: 0.2s;
+
+                &.active {
+                    border-color: #333;
+                    background: #f7f7f7;
+                }
+
+                &:hover {
+                    border-color: #333;
+                }
+            }
+        }
+    }
+
+    /* Grid Handling */
+    .product-container {
+        display: grid;
+        gap: 30px;
+
+        &.view-list {
+            grid-template-columns: 1fr;
+        }
+
+        &.view-grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &.view-grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .item-card {
+        .image-side {
+            background: #f9f9f9;
+            position: relative;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+            // Hover zoom effect
+            &:hover img {
+                transform: scale(1.05);
+            }
+
+            .sale-tag {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                background: #ff7b7b;
+                color: white;
+                padding: 3px 12px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+        }
+
+        .text-side {
+            padding: 20px 0;
+
+            h3 {
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 12px;
+                line-height: 1.4;
+                color: #1a1a1a;
+                text-decoration: none;
+            }
+            
+            // Ensure link color stays dark
+            .product-link {
+                text-decoration: none;
+                color: inherit;
+                &:hover h3 {
+                    text-decoration: underline;
+                }
+            }
+
+            .item-description {
+                font-size: 14px;
+                color: #666;
+                line-height: 1.6;
+                margin-bottom: 18px;
+            }
+
+            .price-display {
+                margin-bottom: 25px;
+
+                .old-price {
+                    text-decoration: line-through;
+                    color: #aaa;
+                    margin-right: 12px;
+                    font-weight: 700;
+                }
+
+                .sale-price {
+                    color: #d0021b;
+                    font-weight: 800;
+                    font-size: 18px;
+                }
+            }
+
+            .buy-btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 12px;
+                border: 1.5px solid #000;
+                background: #fff;
+                color: #000;
+                border-radius: 35px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: 0.3s;
+
+                &:hover {
+                    background: #000;
+                    color: #fff;
+                }
+            }
+        }
+
+        /* List View Horizontal Layout (Desktop) */
+        &.horizontal {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+
+            .image-side {
+                width: 340px;
+                flex-shrink: 0;
+            }
+
+            .text-side {
+                padding: 0;
+            }
+        }
+    }
+
+    .footer-actions {
+        margin-top: 70px;
+
+        .share-btn {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+
+            &:hover {
+                font-weight: 700;
+            }
+        }
+    }
+
+    /* =========================================
+       RESPONSIVE MEDIA QUERIES
+       ========================================= */
+
+    /* Tablet (Max Width 992px) */
+    @media (max-width: 992px) {
+        .product-container.view-grid-3 {
+            grid-template-columns: repeat(2, 1fr); /* Drop 3 columns to 2 */
+        }
+        
+        .item-card.horizontal {
+            gap: 20px;
+            .image-side {
+                width: 280px; /* Slightly smaller image on tablet list view */
+            }
+        }
+    }
+
+    /* Mobile (Max Width 768px) */
+    @media (max-width: 768px) {
+        padding: 30px 15px;
+
+        .title {
+            font-size: 32px; /* Smaller Title */
+        }
+
+        .view-toolbar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        /* Force all grids to 1 column on mobile */
+        .product-container.view-grid-3,
+        .product-container.view-grid-2 {
+            grid-template-columns: 1fr;
+        }
+
+        /* Fix Horizontal List View to Stack Vertically on Mobile */
+        .item-card.horizontal {
+            flex-direction: column;
+            gap: 0;
+            
+            .image-side {
+                width: 100%; /* Full width image */
+            }
+
+            .text-side {
+                padding: 20px 0; /* Restore padding since it's stacked */
+                
+                .buy-btn {
+                    max-width: 100%; /* Full width button on mobile */
+                }
+            }
+        }
+    }
+}
