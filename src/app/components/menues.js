@@ -6,7 +6,7 @@ import gsap from 'gsap';
 
 // --- CONSTANTS ---
 const FALLBACK_IMG = "https://placehold.co/100x100?text=No+Image";
-const LOGO_URL = "/smz enterprises logo.png";
+const LOGO_URL = "/favicon.ico";
 
 const ICONS = {
     search: '/search.png', 

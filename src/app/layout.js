@@ -1,5 +1,5 @@
 import { SearchProvider } from "./components/search";
-import ClientLayout from "./ClientLayout"; // Import the new component
+import ClientLayout from "./ClientLayout"; 
 import "./globals.css";
 import "./styles/dashboards.scss";
 import './styles/responsive.scss';
@@ -9,31 +9,44 @@ export const metadata = {
   metadataBase: new URL('https://next-js-alpha-woad.vercel.app'), 
 
   title: {
-    default: "Viking Armory Blades | Premium Swords, Axes & Knives",
-    template: "%s | Viking Armory Blades"
+    // Is title mein main brand aur variations dono hain
+    default: "SMZ Enterprises | SMZ Store | Premium Blades & Swords",
+    template: "%s | SMZ Enterprises"
   },
-  description: "Discover high-quality handcrafted swords, katanas, axes, and knives. Your ultimate destination for historical and fantasy weaponry.",
   
-  keywords: ["swords", "katanas", "axes", "knives", "viking armory", "hand forged", "fantasy weapons", "outdoor gear"],
+  description: "Official SMZ Enterprises (SMZ Store). We provide premium handcrafted katanas, knives, and axes. Also known as SM Enterprise or SMZ Blades. Quality weaponry for collectors.",
   
-  authors: [{ name: 'Viking Armory' }],
-  creator: 'Viking Armory',
+  // Is list mein wo sab variations hain jo aapne mangi hain
+  keywords: [
+    "SMZ Enterprises", "SMZ Enterprise", "Enterprises SMZ", "SM Enterprises", 
+    "SMZ Store", "SMZ Shop", "SMZ.com", "SMZ.pk", "SMZ.store", "SMZ.in", "SMZ.io",
+    "SM Enterprise", "S.M.Z Enterprises", "smzenterprises", "smz blades",
+    "swords", "katanas", "viking armory",
+    // Misspellings (Ghalt spelling)
+    "smz enterprizes", "smz enterprais", "sm enterpise", "smz sotre"
+  ],
+  
+  authors: [{ name: 'SMZ Enterprises' }],
+  creator: 'SMZ Enterprises',
 
   icons: {
-    icon: '/smz enterprises logo.png', 
+    // Yaad se file ka naam public folder mein 'favicon.png' rakhein
+    icon: '/favicon.ico', 
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 
   openGraph: {
-    title: "Viking Armory Blades",
-    description: "Premium handcrafted swords, knives, and axes.",
+    title: "SMZ Enterprises - Official Store",
+    description: "Shop at SMZ Enterprises for the best handcrafted swords and axes. Global shipping available.",
     url: 'https://next-js-alpha-woad.vercel.app/',
-    siteName: 'Viking Armory Blades',
+    siteName: 'SMZ Enterprises',
     images: [
       {
-        url: '/smz enterprises logo.png', 
+        url: '/favicon.ico', 
         width: 800,
         height: 600,
-        alt: 'Viking Armory Logo',
+        alt: 'SMZ Enterprises Logo',
       },
     ],
     locale: 'en_US',
@@ -42,26 +55,28 @@ export const metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: "Viking Armory Blades",
-    description: "Premium handcrafted swords and outdoor gear.",
-    images: ['/smz enterprises logo.png'],
+    title: "SMZ Enterprises | SMZ Store",
+    description: "Handcrafted blades and outdoor gear from SMZ Enterprises.",
+    images: ['/favicon.png'],
   },
 };
 
-// --- 2. VIEWPORT SETTINGS ---
 export const viewport = {
   themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
 };
 
-// --- 3. ROOT LAYOUT ---
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* Isse search engine ko mazeed help milti hai variations samajhne mein */}
+        <meta name="application-name" content="SMZ Enterprises" />
+        <meta name="apple-mobile-web-app-title" content="SMZ Store" />
+      </head>
       <body>
         <SearchProvider>
-          {/* We wrap children in ClientLayout to handle conditional headers */}
           <ClientLayout>
             {children}
           </ClientLayout>

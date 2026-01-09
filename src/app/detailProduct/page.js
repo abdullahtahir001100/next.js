@@ -222,7 +222,7 @@ const ProductPageClient = ({ product }) => {
 
               <div
                 className="desc-preview"
-                dangerouslySetInnerHTML={{ __html: product?.description?.substring(0, 200) + '...' }}
+               
               />
 
               <div className="fire-alert"><FaFire /> {product?.recentSales} warriors looking now</div>

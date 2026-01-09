@@ -207,7 +207,7 @@ export default function Home() {
           ))}
           {heroImages.length === 0 && (
              <SwiperSlide 
-               loop={true}
+               loop={true} 
              >
                  <img src={FALLBACK_IMG} alt="Fallback" style={{ width: '100%', height: 'auto' }} />
              </SwiperSlide>
@@ -282,6 +282,7 @@ export default function Home() {
                     <div onClick={() => trackProductClick(product._id)} style={{ cursor: 'pointer' }}>
                         <ProductCard product={product} onQuickView={handleQuickView} />
                     </div>
+                   
                 </SwiperSlide>
                 ))}
             </Swiper>
