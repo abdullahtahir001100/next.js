@@ -1,10 +1,8 @@
 import axios from '@/utils/smartApi';
-import { openDB } from 'idb';
 
 const DB_NAME = 'smz-store-db';
 const STORE_NAME = 'api-cache';
 
-// Ye wo list hai jiska data hume cache se uthana hai
 const CACHED_URLS = [
   '/api/settings',
   '/api/shopProducts',
@@ -15,9 +13,13 @@ const CACHED_URLS = [
   '/api/content_all'
 ];
 
-// Helper to get DB
+// ✅ Safe DB getter
 const getDb = async () => {
-  return await openDB(DB_NAME, 1, {
+  if (typeof window === "undefined") return null;
+
+  const { openDB } = await import('idb');
+
+  return openDB(DB_NAME, 1, {
     upgrade(db) {
       if (!db.objectStoreNames.contains(STORE_NAME)) {
         db.createObjectStore(STORE_NAME);
@@ -26,61 +28,55 @@ const getDb = async () => {
   });
 };
 
-// --- CUSTOM GET FUNCTION ---
 const smartGet = async (url, config = {}) => {
-  // 1. Check karein kya ye URL hamari cache list mein hai?
-  // (Hum sirf exact matches check kar rahe hain, parameters hata kar)
   const cleanUrl = url.split('?')[0];
-  const shouldCache = CACHED_URLS.some(endpoint => cleanUrl.includes(endpoint));
+  const shouldCache = CACHED_URLS.some(endpoint =>
+    cleanUrl.includes(endpoint)
+  );
 
-  if (shouldCache) {
+  // ✅ Cache READ (client only)
+  if (shouldCache && typeof window !== "undefined") {
     try {
       const db = await getDb();
-      // Har URL ke liye unique key banegi (params ke sath)
-      // e.g. "shop-products-/api/shopProducts?sort=new"
-      const cacheKey = url; 
-      
-      // A. Pehle DB check karein
-      const cachedData = await db.get(STORE_NAME, cacheKey);
-
-      if (cachedData) {
-        console.log(`⚡ [SmartAPI] Loading from Cache: ${url}`);
-        // Fake Axios Response bana kar return karo
-        return { 
-          data: cachedData, 
-          status: 200, 
-          statusText: 'OK', 
-          headers: {}, 
-          config 
-        };
+      if (db) {
+        const cachedData = await db.get(STORE_NAME, url);
+        if (cachedData) {
+          return {
+            data: cachedData,
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config
+          };
+        }
       }
-    } catch (err) {
-      console.warn("Cache read failed, going to server...", err);
+    } catch (e) {
+      console.warn("Cache read failed");
     }
   }
 
-  // B. Agar Cache mein nahi hai, ya URL cache list mein nahi hai -> Server Call
-  console.log(`🌐 [SmartAPI] Fetching from Server: ${url}`);
+  // 🌐 Server request
   const response = await axios.get(url, config);
 
-  // C. Naya data aane par DB mein save karein (sirf agar ye cachable URL hai)
-  if (shouldCache && response.status === 200) {
+  // ✅ Cache WRITE
+  if (shouldCache && response.status === 200 && typeof window !== "undefined") {
     try {
       const db = await getDb();
-      const freshData = response.data.data || response.data; // Adjust based on your API structure
-      await db.put(STORE_NAME, freshData, url);
-    } catch (err) {
-      console.warn("Cache write failed", err);
+      if (db) {
+        const freshData = response.data.data ?? response.data;
+        await db.put(STORE_NAME, freshData, url);
+      }
+    } catch (e) {
+      console.warn("Cache write failed");
     }
   }
 
   return response;
 };
 
-// Export object that looks like Axios
 const api = {
   get: smartGet,
-  post: axios.post,   // Post request hamesha server pe jayegi
+  post: axios.post,
   put: axios.put,
   delete: axios.delete
 };
