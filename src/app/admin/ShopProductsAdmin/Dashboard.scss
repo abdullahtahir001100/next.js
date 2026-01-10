@@ -778,3 +778,105 @@ $white: #ffffff;
         z-index: 4;
       }
     }
+    /* --- DASHBOARD RESPONSIVE OVERRIDES --- */
+@media screen and (max-width: 768px) {
+    .dashboard-container {
+        padding: 10px;
+
+        /* Header Stacking */
+        .dashboard-header {
+            .nav-tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 8px;
+                
+                button {
+                    padding: 8px 12px;
+                    font-size: 0.8rem;
+                    flex-shrink: 0;
+                }
+            }
+            .search-box {
+                max-width: 100%;
+            }
+        }
+
+        /* Form Stacking */
+        .form-card {
+            padding: 1.5rem 1rem;
+
+            .form-layout-grid {
+                grid-template-columns: 1fr; // Stack the columns
+                gap: 1rem;
+            }
+
+            .form-sub-section {
+                padding: 1rem;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr; // Stack internal grids
+            }
+
+            .form-actions {
+                flex-direction: column;
+                button { width: 100%; }
+            }
+        }
+
+        /* Table to Card Transformation */
+        .table-responsive {
+            table, thead, tbody, th, td, tr { display: block; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; } // Hide headers
+            
+            tr {
+                border: 1px solid $border;
+                border-radius: 15px;
+                margin-bottom: 15px;
+                background: #fff;
+                padding: 10px;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 45% !important;
+                text-align: right !important;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                min-height: 40px;
+
+                &::before {
+                    content: attr(data-label);
+                    position: absolute;
+                    left: 10px;
+                    width: 40%;
+                    text-align: left;
+                    font-weight: 800;
+                    font-size: 10px;
+                    color: #94a3b8;
+                    text-transform: uppercase;
+                }
+
+                .row-img { width: 45px; height: 45px; }
+                .action-row { justify-content: flex-end; width: 100%; }
+            }
+        }
+
+        /* Settings Grid */
+        .settings-grid {
+            grid-template-columns: 1fr !important;
+            
+            .preview-card {
+                display: none; // Hide preview on mobile to save space
+            }
+        }
+
+        /* Custom Popup */
+        .custom-popup-box {
+            width: 95% !important;
+            left: 2.5%;
+        }
+    }
+}
