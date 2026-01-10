@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import '../styles/aditional.scss';
 
-// --- ICONS ---
 const Icons = {
   Menu: () => <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>,
   Close: () => <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>,
@@ -24,10 +23,23 @@ const Icons = {
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
-  // Links with specific icons and routes
+  // Function to handle logout and redirect
+  const handleLogout = async () => {
+    try {
+      const res = await fetch('/api/auth/logout');
+      if (res.ok) {
+        // Clear state and force redirect to login
+        window.location.href = '/admin/login'; 
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   const links = [
-    { title: "Dashboard", href: "/admin//ShopProductsAdmin", icon: <Icons.Grid /> },
+    { title: "Dashboard", href: "/admin/ShopProductsAdmin", icon: <Icons.Grid /> },
     { title: "Collections", href: "/admin/CollectionAdmin", icon: <Icons.Sword /> },
     { title: "Products", href: "/admin/ProductsAdmin", icon: <Icons.Tag /> },
     { title: "Orders", href: "/admin/Orders", icon: <Icons.Cart /> },
@@ -41,50 +53,45 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* 1. HEADER (Visible on All Screens) */}
       <header className="vab-global-header">
         <div className="left-section">
-          {/* Burger Button - Toggles Sidebar */}
           <button className="burger-btn" onClick={() => setIsOpen(true)}>
             <Icons.Menu />
           </button>
-          <div className="brand-logo">VIKING<span>ARMORY</span></div>
+          {/* Top Branding with Logo */}
+          <div className="brand-logo">
+            <img src="/favicon.ico" alt="Logo" className="logo-img" />
+            VIKING<span>ARMORY</span>
+          </div>
         </div>
-        
         <div className="right-section">
-          <div className="user-avatar">A</div>
+          <div className="user-avatar" title="Admin User">A</div>
         </div>
       </header>
 
-      {/* 2. OVERLAY (Click to close) */}
-      <div 
-        className={`vab-sidebar-overlay ${isOpen ? 'open' : ''}`} 
-        onClick={() => setIsOpen(false)} 
-      />
+      <div className={`vab-sidebar-overlay ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(false)} />
 
-      {/* 3. SIDEBAR (Slides in/out) */}
       <aside className={`vab-sidebar ${isOpen ? 'open' : ''}`}>
-        {/* Sidebar Header with Close Button */}
         <div className="sidebar-header">
-          <h2>VIKING<span>ARMORY</span></h2>
+          <div className="logo-box">
+             <img src="/favicon.ico" alt="Logo" className="logo-img" />
+             <h2>VIKING<span>ARMORY</span></h2>
+          </div>
           <button className="close-btn" onClick={() => setIsOpen(false)}>
             <Icons.Close />
           </button>
         </div>
 
-        {/* Links */}
         <nav className="nav-menu">
           <span className="menu-label">Main Menu</span>
           {links.slice(0, 5).map((link) => (
             <Link 
               key={link.title} 
               href={link.href} 
-              // Active Logic: Checks if current path starts with the link's href
               className={`nav-link ${pathname === link.href ? 'active' : ''}`}
               onClick={() => setIsOpen(false)}
             >
-              {link.icon}
-              {link.title}
+              {link.icon} {link.title}
             </Link>
           ))}
 
@@ -96,15 +103,13 @@ export default function Sidebar() {
               className={`nav-link ${pathname === link.href ? 'active' : ''}`}
               onClick={() => setIsOpen(false)}
             >
-              {link.icon}
-              {link.title}
+              {link.icon} {link.title}
             </Link>
           ))}
         </nav>
 
-        {/* Footer */}
         <div className="user-footer">
-          <button className="logout-btn">
+          <button className="logout-btn" onClick={handleLogout}>
             <Icons.Logout /> Logout
           </button>
         </div>

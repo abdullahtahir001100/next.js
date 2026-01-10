@@ -2,6 +2,18 @@
 const nextConfig = {
   reactCompiler: true,
 
+  // --- 1. REDIRECTS LOGIC ---
+  async redirects() {
+    return [
+      {
+        source: '/admin',
+        destination: '/admin/ShopProductsAdmin',
+        permanent: true, // Browser isey hamesha yaad rakhega
+      },
+    ];
+  },
+
+  // --- 2. REMOTE IMAGES CONFIG ---
   images: {
     remotePatterns: [
       {

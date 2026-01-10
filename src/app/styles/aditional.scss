@@ -251,3 +251,53 @@ $border: #e2e8f0;
         }
     }
 }
+// --- UPDATED VARIABLES ---
+$primary: #3b82f6; 
+$bg: #ffffff;
+$hover: #f1f5f9; 
+$text: #64748b;
+$active-text: #1e293b;
+$border: #e2e8f0;
+
+.vab-global-header {
+    // ... existing properties ...
+    .left-section {
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px; // Space between logo and text
+            
+            .logo-img {
+                width: 28px;
+                height: 28px;
+                object-fit: contain;
+            }
+        }
+    }
+}
+
+.vab-sidebar {
+    // ... existing properties ...
+    .sidebar-header {
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .logo-img {
+                width: 32px;
+                height: 32px;
+                object-fit: contain;
+            }
+        }
+    }
+
+    .user-footer {
+        .logout-btn {
+            // ... existing styles ...
+            &:active {
+                transform: scale(0.98); // Tiny click feedback
+            }
+        }
+    }
+}

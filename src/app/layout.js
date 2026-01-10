@@ -68,7 +68,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="application-name" content="SMZ Enterprises" />
         <meta name="apple-mobile-web-app-title" content="SMZ Store" />
