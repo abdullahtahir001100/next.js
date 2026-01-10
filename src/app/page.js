@@ -254,7 +254,7 @@ export default function Home() {
       {/* Best Seller Section */}
       <section className="products linebar">
         <div className="container">
-          <div className="flexbox"><h1>Best Seller</h1><Link href='/'>Shop All</Link></div>
+          <div className="flexbox"><h1>Best Seller</h1><Link href='Products/Swords'>Shop All</Link></div>
           {bestSellers.length > 0 ? (
             <Swiper modules={[Pagination, Autoplay]} spaceBetween={10} slidesPerView={4}   loop={true} navigation pagination={{ clickable: true }}
                breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
@@ -273,7 +273,7 @@ export default function Home() {
       {/* Sword Section */}
       <section className="products">
         <div className="container">
-          <div className="flexbox"><h1>Sword</h1><Link href='/'>Shop All</Link></div>
+          <div className="flexbox"><h1>Sword</h1><Link href='Products/Swords'>Shop All</Link></div>
           {swords.length > 0 && (
             <Swiper modules={[Pagination, Autoplay]}   loop={true} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
                breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>
@@ -291,43 +291,90 @@ export default function Home() {
       </section>
 
       {/* Categories */}
-      <section className="image-grid-section">
-        <div className="container">
-          <h1>Our Categories</h1>
-          <div className="flex">
-            {categories.col_1.map((item, idx) => (
-              <div className="col_" key={idx}>
-                 <div className="image">
-                    <img 
-                        src={item.src} 
-                        alt="Cat" 
-                        style={{width:'100%', height:'auto', display:'block'}} 
-                        onError={(e) => e.target.src = FALLBACK_IMG}
-                    />
-                 </div>
+     {/* Categories */}
+<section className="image-grid-section">
+  <div className="container">
+    <h1>Our Categories</h1>
+
+    {/* Column 1 - Primary Items */}
+    <div className="flex">
+      {categories.col_1.map((item, idx) => {
+        // Hardcoded links for the 1st column items
+        const col1Links = [
+          "/Products/Swords", 
+          "/Products/Axes", 
+          "/Products/Knives%20%26%20Daggers"
+        ];
+        return (
+          <div className="col_" key={idx}>
+            <Link href={col1Links[idx] || "/Products/Swords"}>
+              <div className="image">
+                <img 
+                  src={item.src} 
+                  alt="Category" 
+                  style={{width:'100%', height:'auto', display:'block'}} 
+                  onError={(e) => e.target.src = FALLBACK_IMG}
+                />
               </div>
-            ))}
+            </Link>
           </div>
-          <div className="flex">
-            {categories.col_2.map((item, idx) => (
-              <div className="col_" key={idx}>
-                 <div className="image">
-                    <img src={item.src} alt="Cat" style={{width:'100%', height:'auto', display:'block'}} onError={(e) => e.target.src = FALLBACK_IMG} />
-                 </div>
+        );
+      })}
+    </div>
+
+    {/* Column 2 - Secondary Items */}
+    <div className="flex">
+      {categories.col_2.map((item, idx) => {
+        // Hardcoded links for the 2nd column items
+        const col2Links = [
+          "/Products/Spears%20%26%20Polearms", 
+          "/Products/Chef%20Set", 
+          "/Products/Hammers%20%26%20Maces"
+        ];
+        return (
+          <div className="col_" key={idx}>
+            <Link href={col2Links[idx] || "/Products/Chef%20Set"}>
+              <div className="image">
+                <img 
+                  src={item.src} 
+                  alt="Category" 
+                  style={{width:'100%', height:'auto', display:'block'}} 
+                  onError={(e) => e.target.src = FALLBACK_IMG} 
+                />
               </div>
-            ))}
+            </Link>
           </div>
-          <div className="flex">
-            {categories.col_3.map((item, idx) => (
-              <div className="col_" key={idx}>
-                 <div className="image">
-                    <img src={item.src} alt="Cat" style={{width:'100%', height:'auto', display:'block'}} onError={(e) => e.target.src = FALLBACK_IMG} />
-                 </div>
+        );
+      })}
+    </div>
+
+    {/* Column 3 - Protection & Info */}
+    <div className="flex">
+      {categories.col_3.map((item, idx) => {
+        // Hardcoded links for the 3rd column items
+        const col3Links = [
+          "/Products/Shields%20%26%20Armor", 
+          "/Products/Display%20%26%20Accessories", 
+          "/pages/about"
+        ];
+        return (
+          <div className="col_" key={idx}>
+            <Link href={col3Links[idx] || "/pages/about"}>
+              <div className="image">
+                <img 
+                  src={item.src} 
+                  alt="Category" 
+                  style={{width:'100%', height:'auto', display:'block'}} 
+                  onError={(e) => e.target.src = FALLBACK_IMG} 
+                />
               </div>
-            ))}
+            </Link>
           </div>
-        </div>
-      </section>
+        );
+      })}
+    </div>
+  </div>
+</section>
 
       {/* About Section */}
       <section className='about'>
@@ -357,7 +404,7 @@ export default function Home() {
       {/* Related Products */}
       <section className="products">
         <div className="container">
-          <div className="flexbox"><h1>Related Products</h1><Link href='/'>Shop All</Link></div>
+          <div className="flexbox"><h1>Related Products</h1><Link href='Products/Swords'>Shop All</Link></div>
           {related.length > 0 && (
              <Swiper modules={[Pagination, Autoplay]}  loop={true} spaceBetween={10} slidesPerView={4} navigation pagination={{ clickable: true }}
              breakpoints={{ 320: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}>

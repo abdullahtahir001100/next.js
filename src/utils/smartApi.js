@@ -8,7 +8,7 @@ const CACHED_URLS = [
   '/api/shopProducts',
   '/api/products',
   '/api/inquiries',
-  '/api/collection-admin',
+  '/api/Collectionadmin',
   '/api/sections',
   '/api/content_all'
 ];
